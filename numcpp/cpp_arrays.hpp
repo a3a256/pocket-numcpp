@@ -2,21 +2,21 @@
 #include <complex.h>
 #include <vector>
 
-template <typename T> class 2d_array{
-    private:
-        T* arr;
+// template <typename T> class 2d_array{
+//     private:
+//         T* arr;
 
-    public:
-        2d_array(std::vector<std::vector<T>> mass);
-};
+//     public:
+//         2d_array(std::vector<std::vector<T>> mass);
+// };
 
 
 
 template <typename T> class NdArray{
     private:
 
-        std::vector<std::vector<T>> arr2d;
-        std::vector<T> arr1d;
+        std::vector<std::vector<std::complex>> arr2d;
+        std::vector<std::complex> arr1d;
 
 
     public:
