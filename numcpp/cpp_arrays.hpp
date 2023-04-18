@@ -15,8 +15,8 @@
 template <typename T> class NdArray{
     private:
 
-        std::vector<std::vector<std::complex>> arr2d;
-        std::vector<std::complex> arr1d;
+        std::vector<std::vector<std::complex<T>>> arr2d;
+        std::vector<std::complex<T>> arr1d;
 
 
     public:
