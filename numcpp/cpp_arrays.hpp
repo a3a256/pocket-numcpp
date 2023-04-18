@@ -21,7 +21,7 @@ template <typename T> class NdArray{
 
     public:
 
-        void array2d(std::vector<std::vector<T>> arr){
+        void array2d(std::vector<std::vector<float>> arr){
             return;
         }
 };
