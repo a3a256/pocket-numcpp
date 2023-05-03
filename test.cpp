@@ -11,6 +11,8 @@ int main(){
 
     np.array2d(arr);
 
+    np.show();
+
 
     return 0;
 }

@@ -39,7 +39,7 @@ template <typename T> class NdArray{
             if(arr2d.size() != 0){
                 length = arr2d.size();
                 for(i=0; i<length; i++){
-                    for(j=0; j<arr2d[i]; j++){
+                    for(j=0; j<arr2d[i].size(); j++){
                         std::cout << arr2d[i][j] << " ";
                     }
                     std::cout << "\n";
