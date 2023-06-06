@@ -13,6 +13,8 @@ int main(){
 
     np.show();
 
+    std::vector<int> di = np.diag();
+
 
     return 0;
 }
