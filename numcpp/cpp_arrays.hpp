@@ -16,7 +16,7 @@ template <typename T> class NdArray{
     private:
 
         std::vector<std::vector<T>> arr2d;
-        std::vector<std::complex<T>> arr1d;
+        std::vector<T> arr1d;
 
 
     public:
@@ -46,5 +46,19 @@ template <typename T> class NdArray{
                 }
                 return;
             }
+        }
+
+        std::vector<T> diag(){
+            std::vector<T> res;
+            int i, j;
+            for(i=0; i<arr2d.size(); i++){
+                for(j=0; j<arr2d[0].size(); j++){
+                    if(i == j){
+                        res.push_back(arr2d[i][j]);
+                    }
+                }
+            }
+
+            return res;
         }
 };
