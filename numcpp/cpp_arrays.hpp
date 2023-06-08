@@ -63,7 +63,16 @@ template <typename T> class NdArray{
         }
 
         void to1d_arr(){
-            return;
+            int i, j;
+            for(i=0; i<arr2d.size(); i++){
+                for(j=0; j<arr2d[i].size(); j++){
+                    arr1d.push_back(arr2d[i][j]);
+                }
+            }
+        }
+
+        void to2d_arr(){
+            arr2d.push_back(arr1d);
         }
 
         std::vector<std::vector<T>> transpose(){
