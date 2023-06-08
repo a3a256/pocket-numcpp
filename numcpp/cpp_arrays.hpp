@@ -61,4 +61,12 @@ template <typename T> class NdArray{
 
             return res;
         }
+
+        void to1d_arr(){
+            return;
+        }
+
+        std::vector<std::vector<T>> transpose(){
+            return;
+        }
 };
