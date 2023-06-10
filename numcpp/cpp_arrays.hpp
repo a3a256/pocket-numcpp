@@ -73,6 +73,7 @@ template <typename T> class NdArray{
 
         void to2d_arr(){
             arr2d.push_back(arr1d);
+            std::vector<T>().swap(arr1d);
         }
 
         std::vector<std::vector<T>> transpose(){
