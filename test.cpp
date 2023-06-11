@@ -15,6 +15,9 @@ int main(){
 
     std::vector<int> di = np.diag();
 
+    np.transpose();
+    np.show();
+
 
     return 0;
 }

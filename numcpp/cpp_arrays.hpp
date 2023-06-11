@@ -86,7 +86,7 @@ template <typename T> class NdArray{
             std::vector<T> temp;
             for(i=0; i<arr2d[0].size(); i++){
                 for(j=0; j<arr2d.size(); j++){
-                    temp.push_back(arr[i][j]);
+                    temp.push_back(arr2d[i][j]);
                 }
                 res.push_back(temp);
                 std::vector<T>().swap(temp);
