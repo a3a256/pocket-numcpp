@@ -96,4 +96,8 @@ template <typename T> class NdArray{
             arr2d = res;
             std::vector<std::vector<T>>().swap(res);
         }
+
+        void dot(NdArray<T> arr){
+            return;
+        }
 };
