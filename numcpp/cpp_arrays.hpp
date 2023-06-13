@@ -97,6 +97,21 @@ template <typename T> class NdArray{
             std::vector<std::vector<T>>().swap(res);
         }
 
+        void zeros(std::vector<int> dims){
+            int n = dims.size();
+            if(n == 1){
+                std::vector<T> res(dims[0], 0);
+                arr1d = res;
+                std::vector<T>().swap(res);
+            }
+
+            if(n == 2){
+                std::vector<std::vector<T>> res(dims[0], std::vector<T>(dims[1], 0));
+                arr2d = res;
+                std::vector<std::vector<T>>().swap(res);
+            }
+        }
+
         void dot(NdArray<T> arr){
             return;
         }
