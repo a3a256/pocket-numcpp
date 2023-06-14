@@ -1,6 +1,7 @@
 #include <iostream>
 #include <complex.h>
 #include <vector>
+#include <stdexcept>
 
 // template <typename T> class 2d_array{
 //     private:
@@ -113,6 +114,11 @@ template <typename T> class NdArray{
         }
 
         void dot(NdArray<T> arr){
+            std::string line = "Cannot multiply matrices of size ";
+            if(arr2d[0].size() != arr.arr2d.size()){
+                throw std::invalid_argument("")
+            }
+            int i, j, k;
             return;
         }
 };
