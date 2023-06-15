@@ -113,10 +113,17 @@ template <typename T> class NdArray{
             }
         }
 
+        std::tuple<int, int> shape(){
+            int m, n;
+            m = arr2d.size();
+            n = arr2d[0].size();
+            return {m, n};
+        }
+
         void dot(NdArray<T> arr){
             std::string line = "Cannot multiply matrices of size ";
             if(arr2d[0].size() != arr.arr2d.size()){
-                throw std::invalid_argument("")
+                throw std::invalid_argument(line);
             }
             int i, j, k;
             return;
