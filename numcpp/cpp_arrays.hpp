@@ -121,8 +121,12 @@ template <typename T> class NdArray{
         }
 
         void dot(NdArray<T> arr){
+            const auto [m1, n1] = shape();
+            const auto [m2, n2] = arr.shape();
             std::string line = "Cannot multiply matrices of size ";
-            if(arr2d[0].size() != arr.arr2d.size()){
+            line += '(' + std::to_string(m1) + ',' + std::to_string(n2) + ')';
+            line += " and (" + std::to_string(m2) + ',' + std::to_string(n2) + ')';
+            if(n1 != m2){
                 throw std::invalid_argument(line);
             }
             int i, j, k;
