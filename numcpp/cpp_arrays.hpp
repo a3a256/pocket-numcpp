@@ -130,6 +130,8 @@ template <typename T> class NdArray{
                 throw std::invalid_argument(line);
             }
             int i, j, k;
+            std::vector<std::vector<T>> res;
+            std::vector<T> temp;
             return;
         }
 };
