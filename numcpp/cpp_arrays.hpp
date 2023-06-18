@@ -132,6 +132,10 @@ template <typename T> class NdArray{
             int i, j, k;
             std::vector<std::vector<T>> res;
             std::vector<T> temp;
+            T sum;
+            for(i=0; i<m1; i++){
+                for()
+            }
             return;
         }
 };
