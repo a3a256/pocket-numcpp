@@ -14,13 +14,10 @@
 
 
 template <typename T> class NdArray{
-    private:
-
-        std::vector<std::vector<T>> arr2d;
-        std::vector<T> arr1d;
-
 
     public:
+        std::vector<std::vector<T>> arr2d;
+        std::vector<T> arr1d;
 
         void array2d(std::vector<std::vector<T>> arr){
             arr2d = arr;
@@ -134,8 +131,17 @@ template <typename T> class NdArray{
             std::vector<T> temp;
             T sum;
             for(i=0; i<m1; i++){
-                for()
+                for(j=0; j<n2; j++){
+                    sum = 0;
+                    for(k=0; k<n1; k++){
+                        sum += arr2d[i][k]*arr.arr2d[k][j];
+                    }
+                    temp.push_back(sum);
+                }
+                res.push_back(temp);
+                std::vector<T>().swap(temp);
             }
-            return;
+            arr2d = res;
+            std::vector<std::vector<T>>().swap(res);
         }
 };
