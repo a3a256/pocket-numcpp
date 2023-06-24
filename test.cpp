@@ -8,15 +8,22 @@ int main(){
     NdArray<int> np;
 
     std::vector<std::vector<int>> arr = {{1, 2, 3, 4, 5}};
+    NdArray<int> np1;
+
+    np1.array2d({{1}, {2}, {3}, {4}, {5}});
 
     np.array2d(arr);
 
-    np.show();
+    np1.dot(np);
 
-    std::vector<int> di = np.diag();
+    np1.show();
 
-    np.transpose();
-    np.show();
+    // np.show();
+
+    // std::vector<int> di = np.diag();
+
+    // np.transpose();
+    // np.show();
 
 
     return 0;
