@@ -3,6 +3,15 @@
 #include <vector>
 #include <stdexcept>
 
+namespace ndarray{
+    template<typename T> class array{
+        public:
+            std::vector<T>arr;
+            array(std::vector<T> val){arr = val;}
+            virtual ~array(){}
+    };
+}
+
 // template <typename T> class 2d_array{
 //     private:
 //         T* arr;
@@ -110,7 +119,7 @@ template <typename T> class NdArray{
             }
         }
 
-        std::tuple<int, int> shape(){
+        std::vector<int> shape(){
             int m, n;
             m = arr2d.size();
             n = arr2d[0].size();
@@ -118,8 +127,10 @@ template <typename T> class NdArray{
         }
 
         void dot(NdArray<T> arr){
-            const auto [m1, n1] = shape();
-            const auto [m2, n2] = arr.shape();
+            std::vector<int> sh = shape();
+            int m1 = sh[0], n1 = sh[1];
+            sh = arr.shape();
+            int m2 = sh[0], n2 = sh[1];
             std::string line = "Cannot multiply matrices of size ";
             line += '(' + std::to_string(m1) + ',' + std::to_string(n2) + ')';
             line += " and (" + std::to_string(m2) + ',' + std::to_string(n2) + ')';
