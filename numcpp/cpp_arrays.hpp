@@ -4,13 +4,21 @@
 #include <stdexcept>
 
 namespace array{
-    template<typename T> class arr{
-        public:
-            std::vector<T>arr;
-            array(std::vector<T> val){arr = val;}
-            virtual ~array(){}
+    template<size_t dimcount, typename T> struct nd_arr{
+        typedef std::vector<typename nd_arr<dimcount-1, T>::type> type;
     };
-}
+
+    template<typename T>
+    struct nd_arr<0, T>{
+        typedef T type;
+    }
+    // template<typename T> class arr{
+    //     public:
+    //         std::vector<T>arr;
+    //         array(std::vector<T> val){arr = val;}
+    //         virtual ~array(){}
+    // };
+};
 
 // template <typename T> class 2d_array{
 //     private:
