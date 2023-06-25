@@ -3,8 +3,8 @@
 #include <vector>
 #include <stdexcept>
 
-namespace ndarray{
-    template<typename T> class array{
+namespace array{
+    template<typename T> class arr{
         public:
             std::vector<T>arr;
             array(std::vector<T> val){arr = val;}
