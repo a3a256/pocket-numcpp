@@ -18,6 +18,8 @@ int main(){
 
     np1.show();
 
+    narr::nd_arr<2, int> arr;
+
     // np.show();
 
     // std::vector<int> di = np.diag();
