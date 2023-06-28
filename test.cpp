@@ -18,7 +18,8 @@ int main(){
 
     np1.show();
 
-    narr::nd_arr<2, int> arr;
+    narr::nd_arr<2, int>::type arr1;
+    arr1 = arr;
 
     // np.show();
 

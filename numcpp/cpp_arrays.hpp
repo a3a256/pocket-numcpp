@@ -12,6 +12,11 @@ namespace narr{
     struct nd_arr<0, T>{
         typedef T type;
     };
+
+    template<typename T>
+    nd_arr<1, T> shape(){
+        return;
+    }
 };
 
 template <size_t dim, typename T> class array{
