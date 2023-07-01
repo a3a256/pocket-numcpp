@@ -141,6 +141,21 @@ template <typename T> class NdArray{
             }
         }
 
+        void ones(std::vector<int> dims){
+            int n = dims.size();
+            if(n == 1){
+                std::vector<T> res(dims[0], 1);
+                arr1d = res;
+                std::vector<T>().swap(res);
+            }
+
+            if(n == 2){
+                std::vector<std::vector<T>> res(dims[0], std::vector<T>(dims[1], 1));
+                arr2d = res;
+                std::vector<std::vector<T>>().swap(res);
+            }
+        }
+
         std::vector<int> shape(){
             int m, n;
             m = arr2d.size();
