@@ -3,45 +3,36 @@
 #include <vector>
 #include <stdexcept>
 
-namespace narr{
-    template<size_t dimcount, typename T> struct nd_arr{
-        typedef std::vector<typename nd_arr<dimcount-1, T>::type> type;
-    };
+// namespace narr{
+//     template<size_t dimcount, typename T> struct nd_arr{
+//         typedef std::vector<typename nd_arr<dimcount-1, T>::type> type;
+//     };
 
-    template<typename T>
-    struct nd_arr<0, T>{
-        typedef T type;
-    };
+//     template<typename T>
+//     struct nd_arr<0, T>{
+//         typedef T type;
+//     };
 
-    template<typename T>
-    nd_arr<1, T> shape(){
-        return;
-    }
-};
-
-template <size_t dim, typename T> class array{
-    private:
-        int d = static_cast<int>(dim);
-
-    public:
-
-        narr::nd_arr<1, int>shape(){
-            return;
-        }
-
-        void dot(narr::nd_arr<size_t dimcount, typename T> two){
-            return;
-        }
-};
-
-// template <typename T> class 2d_array{
-//     private:
-//         T* arr;
-
-//     public:
-//         2d_array(std::vector<std::vector<T>> mass);
+//     template<typename T>
+//     nd_arr<1, T> shape(){
+//         return;
+//     }
 // };
 
+// template <size_t dim, typename T> class array{
+//     private:
+//         int d = static_cast<int>(dim);
+
+//     public:
+
+//         narr::nd_arr<1, int>shape(){
+//             return;
+//         }
+
+//         void dot(narr::nd_arr<size_t dimcount, typename T> two){
+//             return;
+//         }
+// };
 
 
 template <typename T> class NdArray{

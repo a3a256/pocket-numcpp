@@ -21,8 +21,8 @@ int main(){
     np1.ones({1, 2});
     np1.show();
 
-    narr::nd_arr<2, int>::type arr1;
-    arr1 = arr;
+    // narr::nd_arr<2, int>::type arr1;
+    // arr1 = arr;
 
     // np.show();
 
