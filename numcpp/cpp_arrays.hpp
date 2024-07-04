@@ -41,6 +41,17 @@ template <typename T> class NdArray{
         std::vector<std::vector<T>> arr2d;
         std::vector<T> arr1d;
 
+        std::vector<std::vector<T>> operator+(std::vector<std::vector<T>> mat){
+            int i, j;
+            for(i=0; i<mat.size(); i++){
+                for(j=0; j<mat[0].size(); j++){
+                    arr2d[i][j] += mat[i][j];
+                }
+            }
+
+            return arr2d;
+        }
+
         void array2d(std::vector<std::vector<T>> arr){
             arr2d = arr;
         }
