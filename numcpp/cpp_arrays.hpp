@@ -2,6 +2,7 @@
 #include <complex.h>
 #include <vector>
 #include <stdexcept>
+#include <string>
 
 // namespace narr{
 //     template<size_t dimcount, typename T> struct nd_arr{
@@ -34,6 +35,13 @@
 //         }
 // };
 
+struct value{
+    int num;
+    float dec;
+    std::string line;
+    bool is_int, if_float, is_obj;
+};
+
 
 template <typename T> class NdArray{
 
@@ -46,6 +54,17 @@ template <typename T> class NdArray{
             for(i=0; i<mat.size(); i++){
                 for(j=0; j<mat[0].size(); j++){
                     arr2d[i][j] += mat[i][j];
+                }
+            }
+
+            return arr2d;
+        }
+
+        std::vector<std::vector<T>> operator+(float val){
+            int i, j;
+            for(i=0; i<arr2d.size(); i++){
+                for(j=0; j<arr2d[i].size(); j++){
+                    arr2d[i][j] += val;
                 }
             }
 
