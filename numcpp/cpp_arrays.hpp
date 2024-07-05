@@ -39,7 +39,17 @@ struct value{
     int num;
     float dec;
     std::string line;
-    bool is_int, if_float, is_obj;
+    bool is_int, is_float, is_obj;
+
+    bool operator>(const value &val) const{
+        if(is_int){
+            return num > val.num;
+        }
+        if(is_float){
+            return dec > val.dec;
+        }
+        return line > val.line;
+    }
 };
 
 
