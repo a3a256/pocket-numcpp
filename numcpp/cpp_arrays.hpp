@@ -50,39 +50,78 @@ struct value{
         }
         return line > val.line;
     }
+
+    bool operator<(const value &val) const{
+        if(is_int){
+            return num < val.num;
+        }
+        if(is_float){
+            return dec < val.dec;
+        }
+        return line < val.line;
+    }
+
+    value operator+=(const float v){
+        if(is_int){
+            is_int = false;
+            is_float = true;
+            dec = (float)num + v;
+            return *this;
+        }
+        if(is_float){
+            dec += v;
+            return *this;
+        }
+        if(is_obj){
+            line += std::to_string(v);
+
+            return *this;
+        }
+    }
+    // up to make it up for various scenarios like int + str, float + str, float + int, int + int, float + float, etc.
+    value operator+=(const value v){
+        if(v.is_int || v.is_float && is_obj){
+            line += std::to_string((v.is_int)?(v.num):(v.dec));
+        }
+        // if(is_float){
+        //     if()
+        // }
+    }
 };
 
-
-template <typename T> class NdArray{
+/*
+Change lots of function and convert value types to "value" struct
+*/
+class NdArray{
 
     public:
-        std::vector<std::vector<T>> arr2d;
-        std::vector<T> arr1d;
+        std::vector<value> array1d;
+        std::vector<std::vector<value>> array2d;
 
-        std::vector<std::vector<T>> operator+(std::vector<std::vector<T>> mat){
+        std::vector<std::vector<value>> operator+(std::vector<std::vector<value>> mat){
             int i, j;
             for(i=0; i<mat.size(); i++){
                 for(j=0; j<mat[0].size(); j++){
-                    arr2d[i][j] += mat[i][j];
+                    array2d[i][j] += mat[i][j];
                 }
             }
 
-            return arr2d;
+            return array2d;
         }
 
-        std::vector<std::vector<T>> operator+(float val){
+        std::vector<std::vector<value>> operator+(float val){
             int i, j;
-            for(i=0; i<arr2d.size(); i++){
-                for(j=0; j<arr2d[i].size(); j++){
-                    arr2d[i][j] += val;
+            for(i=0; i<array2d.size(); i++){
+                for(j=0; j<array2d[i].size(); j++){
+                    array2d[i][j] += val;
                 }
             }
 
-            return arr2d;
+            return array2d;
         }
-
-        void array2d(std::vector<std::vector<T>> arr){
-            arr2d = arr;
+        // yet to implement this one???
+        void array2d(std::vector<std::vector<value>> arr){
+            return;
         }
 
         void show(){
@@ -108,8 +147,8 @@ template <typename T> class NdArray{
             }
         }
 
-        std::vector<T> diag(){
-            std::vector<T> res;
+        std::vector<value> diag(){
+            std::vector<value> res;
             int i, j;
             for(i=0; i<arr2d.size(); i++){
                 for(j=0; j<arr2d[0].size(); j++){
@@ -122,14 +161,14 @@ template <typename T> class NdArray{
             return res;
         }
 
-        void to1d_arr(){
-            int i, j;
-            for(i=0; i<arr2d.size(); i++){
-                for(j=0; j<arr2d[i].size(); j++){
-                    arr1d.push_back(arr2d[i][j]);
-                }
-            }
-        }
+        // void to1d_arr(){
+        //     int i, j;
+        //     for(i=0; i<arr2d.size(); i++){
+        //         for(j=0; j<arr2d[i].size(); j++){
+        //             arr1d.push_back(arr2d[i][j]);
+        //         }
+        //     }
+        // }
 
         void to2d_arr(){
             arr2d.push_back(arr1d);
