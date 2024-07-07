@@ -124,36 +124,36 @@ class NdArray{
             return;
         }
 
-        void show(){
-            int i, j, length;
-            if(arr1d.size() != 0){
-                length = arr1d.size();
-                for(i=0; i<length; i++){
-                    std::cout << arr1d[i] << " ";
-                }
-                std::cout << "\n";
-                return;
-            }
+        // void show(){
+        //     int i, j, length;
+        //     if(arr1d.size() != 0){
+        //         length = arr1d.size();
+        //         for(i=0; i<length; i++){
+        //             std::cout << arr1d[i] << " ";
+        //         }
+        //         std::cout << "\n";
+        //         return;
+        //     }
 
-            if(arr2d.size() != 0){
-                length = arr2d.size();
-                for(i=0; i<length; i++){
-                    for(j=0; j<arr2d[i].size(); j++){
-                        std::cout << arr2d[i][j] << " ";
-                    }
-                    std::cout << "\n";
-                }
-                return;
-            }
-        }
+        //     if(arr2d.size() != 0){
+        //         length = arr2d.size();
+        //         for(i=0; i<length; i++){
+        //             for(j=0; j<arr2d[i].size(); j++){
+        //                 std::cout << arr2d[i][j] << " ";
+        //             }
+        //             std::cout << "\n";
+        //         }
+        //         return;
+        //     }
+        // }
 
         std::vector<value> diag(){
             std::vector<value> res;
             int i, j;
-            for(i=0; i<arr2d.size(); i++){
-                for(j=0; j<arr2d[0].size(); j++){
+            for(i=0; i<array2d.size(); i++){
+                for(j=0; j<array2d[0].size(); j++){
                     if(i == j){
-                        res.push_back(arr2d[i][j]);
+                        res.push_back(array2d[i][j]);
                     }
                 }
             }
@@ -170,10 +170,10 @@ class NdArray{
         //     }
         // }
 
-        void to2d_arr(){
-            arr2d.push_back(arr1d);
-            std::vector<T>().swap(arr1d);
-        }
+        // void to2d_arr(){
+        //     arr2d.push_back(arr1d);
+        //     std::vector<T>().swap(arr1d);
+        // }
 
         void transpose(){
             if(arr1d.size() != 0){
@@ -181,8 +181,8 @@ class NdArray{
             }
 
             int i, j;
-            std::vector<std::vector<T>> res;
-            std::vector<T> temp;
+            std::vector<std::vector<value>> res;
+            std::vector<value> temp;
             for(i=0; i<arr2d[0].size(); i++){
                 for(j=0; j<arr2d.size(); j++){
                     temp.push_back(arr2d[j][i]);
