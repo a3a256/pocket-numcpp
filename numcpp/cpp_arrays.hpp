@@ -87,7 +87,25 @@ struct value{
         //     if()
         // }
     }
+
+    friend std::ostream& operator<<(std::ostream& os, const value& val);
 };
+
+std::ostream& operator<<(std::ostream& os, const value& val){
+    if(val.is_int){
+        os << val.num;
+        return os;
+    }
+    if(val.is_float){
+        os << val.dec;
+        return os;
+    }
+    if(val.is_obj){
+        os << val.line;
+    }
+
+    return os;
+}
 
 /*
 Change lots of function and convert value types to "value" struct
@@ -97,6 +115,8 @@ class NdArray{
     public:
         std::vector<value> array1d;
         std::vector<std::vector<value>> array2d;
+
+        friend std::ostream& operator<<(std::ostream& os, NdArray& arr);
 
         std::vector<std::vector<value>> operator+(std::vector<std::vector<value>> mat){
             int i, j;
@@ -124,28 +144,28 @@ class NdArray{
             return;
         }
 
-        // void show(){
-        //     int i, j, length;
-        //     if(arr1d.size() != 0){
-        //         length = arr1d.size();
-        //         for(i=0; i<length; i++){
-        //             std::cout << arr1d[i] << " ";
-        //         }
-        //         std::cout << "\n";
-        //         return;
-        //     }
+        void show(){
+            int i, j, length;
+            if(arr1d.size() != 0){
+                length = arr1d.size();
+                for(i=0; i<length; i++){
+                    std::cout << arr1d[i] << " ";
+                }
+                std::cout << "\n";
+                return;
+            }
 
-        //     if(arr2d.size() != 0){
-        //         length = arr2d.size();
-        //         for(i=0; i<length; i++){
-        //             for(j=0; j<arr2d[i].size(); j++){
-        //                 std::cout << arr2d[i][j] << " ";
-        //             }
-        //             std::cout << "\n";
-        //         }
-        //         return;
-        //     }
-        // }
+            if(arr2d.size() != 0){
+                length = arr2d.size();
+                for(i=0; i<length; i++){
+                    for(j=0; j<arr2d[i].size(); j++){
+                        std::cout << arr2d[i][j] << " ";
+                    }
+                    std::cout << "\n";
+                }
+                return;
+            }
+        }
 
         std::vector<value> diag(){
             std::vector<value> res;
@@ -262,4 +282,56 @@ class NdArray{
             arr2d = res;
             std::vector<std::vector<T>>().swap(res);
         }
+
+
+    private:
+
+    // added function to show
+
+        // void show(){
+        //     int i, j, length;
+        //     if(array1d.size() != 0){
+        //         length = array1d.size();
+        //         for(i=0; i<length; i++){
+        //             std::cout << array1d[i] << " ";
+        //         }
+        //         std::cout << "\n";
+        //         return;
+        //     }
+
+        //     if(array2d.size() != 0){
+        //         length = array2d.size();
+        //         for(i=0; i<length; i++){
+        //             for(j=0; j<array2d[i].size(); j++){
+        //                 std::cout << array2d[i][j] << " ";
+        //             }
+        //             std::cout << "\n";
+        //         }
+        //         return;
+        //     }
+        // }
 };
+
+std::ostream& operator<<(std::ostream& os, NdArray &arr){
+    int i, j, length;
+    if(arr.array1d.size() != 0){
+        length = arr.array1d.size();
+        for(i=0; i<length; i++){
+            os << arr.array1d[i] << " ";
+        }
+        os << "\n";
+        return os;
+    }
+
+    if(arr.array2d.size() != 0){
+        length = arr.array2d.size();
+        for(i=0; i<length; i++){
+            for(j=0; j<arr.array2d[i].size(); j++){
+                os << arr.array2d[i][j] << " ";
+            }
+            os << "\n";
+        }
+    }
+
+    return os;
+}
