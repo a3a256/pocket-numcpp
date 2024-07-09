@@ -218,34 +218,42 @@ class NdArray{
 
         void zeros(std::vector<int> dims){
             int n = dims.size();
+            value val;
+            val.is_int = true;
+                val.num = 0;
             if(n == 1){
-                std::vector<T> res(dims[0], 0);
-                arr1d = res;
-                std::vector<T>().swap(res);
+                std::vector<value> res(dims[0], val);
+                array1d = res;
+                std::vector<value>().swap(res);
             }
 
             if(n == 2){
-                std::vector<std::vector<T>> res(dims[0], std::vector<T>(dims[1], 0));
-                arr2d = res;
-                std::vector<std::vector<T>>().swap(res);
+                std::vector<std::vector<value>> res(dims[0], std::vector<value>(dims[1], val));
+                array2d = res;
+                std::vector<std::vector<value>>().swap(res);
             }
         }
 
         void ones(std::vector<int> dims){
             int n = dims.size();
+            value val;
+            val.is_int = true;
+            val.num = 1;
             if(n == 1){
-                std::vector<T> res(dims[0], 1);
-                arr1d = res;
-                std::vector<T>().swap(res);
+                std::vector<value> res(dims[0], val);
+                array1d = res;
+                std::vector<value>().swap(res);
             }
 
             if(n == 2){
-                std::vector<std::vector<T>> res(dims[0], std::vector<T>(dims[1], 1));
-                arr2d = res;
-                std::vector<std::vector<T>>().swap(res);
+                std::vector<std::vector<value>> res(dims[0], std::vector<value>(dims[1], val));
+                array2d = res;
+                std::vector<std::vector<value>>().swap(res);
             }
         }
 
+        
+        // convert shape to class??
         std::vector<int> shape(){
             int m, n;
             m = arr2d.size();
