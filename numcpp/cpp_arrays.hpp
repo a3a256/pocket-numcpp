@@ -107,6 +107,25 @@ std::ostream& operator<<(std::ostream& os, const value& val){
     return os;
 }
 
+// add this part to NdArray class as inside objects
+
+struct shape{
+        int one_dim=-1;
+        std::vector<int> two_dim;
+
+        friend std::ostream& operator<<(std::ostream &os, const shape& arr);
+};
+
+std::ostream& operator<<(std::ostream& os, const shape& arr){
+    if(arr.one_dim > -1){
+        os << '(' << arr.one_dim << ",)";
+        return os;
+    }
+
+    os << '(' << arr.two_dim[0] << ',' << arr.two_dim[1] << ')';
+    return os;
+}
+
 /*
 Change lots of function and convert value types to "value" struct
 */
@@ -252,14 +271,14 @@ class NdArray{
             }
         }
 
-        
+
         // convert shape to class??
-        std::vector<int> shape(){
-            int m, n;
-            m = arr2d.size();
-            n = arr2d[0].size();
-            return {m, n};
-        }
+        // struct shape{
+        //     std::vector<int> one_dim;
+        //     std::vector<std::vector<int>> two_dim;
+        // };
+
+        // friend std::ostream& operator<<(std::ostream& os, shape& arr);
 
         void dot(NdArray<T> arr){
             std::vector<int> sh = shape();
