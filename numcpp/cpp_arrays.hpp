@@ -109,22 +109,22 @@ std::ostream& operator<<(std::ostream& os, const value& val){
 
 // add this part to NdArray class as inside objects
 
-struct shape{
-        int one_dim=-1;
-        std::vector<int> two_dim;
+// struct shape{
+//         int one_dim=-1;
+//         std::vector<int> two_dim;
 
-        friend std::ostream& operator<<(std::ostream &os, const shape& arr);
-};
+//         friend std::ostream& operator<<(std::ostream &os, const shape& arr);
+// };
 
-std::ostream& operator<<(std::ostream& os, const shape& arr){
-    if(arr.one_dim > -1){
-        os << '(' << arr.one_dim << ",)";
-        return os;
-    }
+// std::ostream& operator<<(std::ostream& os, const shape& arr){
+//     if(arr.one_dim > -1){
+//         os << '(' << arr.one_dim << ",)";
+//         return os;
+//     }
 
-    os << '(' << arr.two_dim[0] << ',' << arr.two_dim[1] << ')';
-    return os;
-}
+//     os << '(' << arr.two_dim[0] << ',' << arr.two_dim[1] << ')';
+//     return os;
+// }
 
 /*
 Change lots of function and convert value types to "value" struct
@@ -135,6 +135,15 @@ class NdArray{
         std::vector<value> array1d;
         std::vector<std::vector<value>> array2d;
 
+        // Implemented struct shape for numcpp array
+
+        struct shape{
+            int one_dim=-1;
+            std::vector<int> two_dim;
+            // definition of a cout overload operator for shape struct
+            friend std::ostream& operator<<(std::ostream &os, const shape& val);
+        };
+        // cout overload operator for NdArray class - definition
         friend std::ostream& operator<<(std::ostream& os, NdArray& arr);
 
         std::vector<std::vector<value>> operator+(std::vector<std::vector<value>> mat){
@@ -159,9 +168,9 @@ class NdArray{
             return array2d;
         }
         // yet to implement this one???
-        void array2d(std::vector<std::vector<value>> arr){
-            return;
-        }
+        // void array2d(std::vector<std::vector<value>> arr){
+        //     return;
+        // }
 
         void show(){
             int i, j, length;
@@ -339,6 +348,7 @@ class NdArray{
         // }
 };
 
+// implementation of a cout << overload operato for NdArray portrayal of vectors
 std::ostream& operator<<(std::ostream& os, NdArray &arr){
     int i, j, length;
     if(arr.array1d.size() != 0){
@@ -360,5 +370,16 @@ std::ostream& operator<<(std::ostream& os, NdArray &arr){
         }
     }
 
+    return os;
+}
+
+// implementation of a cout << overload operato for shape struct
+std::ostream& operator<<(std::ostream& os, NdArray::shape& val){
+    if(val.one_dim > -1){
+        os << '(' << val.one_dim << ",)";
+        return os;
+    }
+
+    os << '(' << val.two_dim[0] << ',' << val.two_dim[1] << ')';
     return os;
 }
