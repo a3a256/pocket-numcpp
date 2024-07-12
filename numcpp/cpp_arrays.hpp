@@ -137,14 +137,16 @@ class NdArray{
 
         // Implemented struct shape for numcpp array
 
-        struct shape{
+        struct dimensions{
             int one_dim=-1;
             std::vector<int> two_dim;
             // definition of a cout overload operator for shape struct
-            friend std::ostream& operator<<(std::ostream &os, const shape& val);
+            friend std::ostream& operator<<(std::ostream &os, const dimensions& val);
         };
         // cout overload operator for NdArray class - definition
         friend std::ostream& operator<<(std::ostream& os, NdArray& arr);
+
+        dimensions shape;
 
         std::vector<std::vector<value>> operator+(std::vector<std::vector<value>> mat){
             int i, j;
@@ -167,33 +169,31 @@ class NdArray{
 
             return array2d;
         }
+
+        // implement flattening out the 2d array so far?
+        // do we need non-changing implementation of 1d array?
+        NdArray flatten(){
+            return;
+        }
+
+
+        // find out how reshaping work with 1d or does it reshape from 2d into 1d array
+        // yet to implement for the case above and for cases when one of the parameters equals '-1'
+        // implement overall
+        NdArray reshape(int row, int col){
+            int i, j, total_vals, index;
+            total_vals = -1;
+            if(array1d.size() != 0){
+                total_vals = shape.one_dim;
+            }else{
+                total_vals = shape.two_dim[0] * shape.two_dim[1];
+            }
+            std::vector<std::vector<value>> new_arr;
+        }
         // yet to implement this one???
         // void array2d(std::vector<std::vector<value>> arr){
         //     return;
         // }
-
-        void show(){
-            int i, j, length;
-            if(arr1d.size() != 0){
-                length = arr1d.size();
-                for(i=0; i<length; i++){
-                    std::cout << arr1d[i] << " ";
-                }
-                std::cout << "\n";
-                return;
-            }
-
-            if(arr2d.size() != 0){
-                length = arr2d.size();
-                for(i=0; i<length; i++){
-                    for(j=0; j<arr2d[i].size(); j++){
-                        std::cout << arr2d[i][j] << " ";
-                    }
-                    std::cout << "\n";
-                }
-                return;
-            }
-        }
 
         std::vector<value> diag(){
             std::vector<value> res;
@@ -208,20 +208,6 @@ class NdArray{
 
             return res;
         }
-
-        // void to1d_arr(){
-        //     int i, j;
-        //     for(i=0; i<arr2d.size(); i++){
-        //         for(j=0; j<arr2d[i].size(); j++){
-        //             arr1d.push_back(arr2d[i][j]);
-        //         }
-        //     }
-        // }
-
-        // void to2d_arr(){
-        //     arr2d.push_back(arr1d);
-        //     std::vector<T>().swap(arr1d);
-        // }
 
         void transpose(){
             if(arr1d.size() != 0){
@@ -279,15 +265,6 @@ class NdArray{
                 std::vector<std::vector<value>>().swap(res);
             }
         }
-
-
-        // convert shape to class??
-        // struct shape{
-        //     std::vector<int> one_dim;
-        //     std::vector<std::vector<int>> two_dim;
-        // };
-
-        // friend std::ostream& operator<<(std::ostream& os, shape& arr);
 
         void dot(NdArray<T> arr){
             std::vector<int> sh = shape();
@@ -374,7 +351,7 @@ std::ostream& operator<<(std::ostream& os, NdArray &arr){
 }
 
 // implementation of a cout << overload operato for shape struct
-std::ostream& operator<<(std::ostream& os, NdArray::shape& val){
+std::ostream& operator<<(std::ostream& os, NdArray::dimensions& val){
     if(val.one_dim > -1){
         os << '(' << val.one_dim << ",)";
         return os;
