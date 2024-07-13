@@ -288,13 +288,24 @@ class NdArray{
         // do we need non-changing implementation of 1d array?
         NdArray flatten(){
             std::vector<value> arr;
+            int i, j;
             if(array1d.size() != 0){
-                int i;
                 for(i=0; i<array1d.size(); i++){
                     arr.push_back(array1d[i]);
                 }
-                return arr;
+                NdArray array(arr);
+                return array;
             }
+
+            for(i=0; i<array2d.size(); i++){
+                for(j=0; j<array2d[i].size(); j++){
+                    arr.push_back(array2d[i][j]);
+                }
+            }
+
+            NdArray array(arr);
+
+            return array;
         }
 
 
