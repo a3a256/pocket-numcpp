@@ -146,6 +146,120 @@ class NdArray{
         // cout overload operator for NdArray class - definition
         friend std::ostream& operator<<(std::ostream& os, NdArray& arr);
 
+        // Constructors overloading for 1d arrays and their shapes for different data types
+
+        NdArray(std::vector<int> arr1d){
+            std::vector<value>().swap(array1d);
+            int i;
+            value t;
+            for(i=0; i<arr1d.size(); i++){
+                t.is_int = true;
+                t.num = arr1d[i];
+                array1d.push_back(t);
+            }
+            shape.one_dim = (int)arr1d.size();
+            std::vector<int>().swap(shape.two_dim);
+        }
+
+        NdArray(std::vector<float> arr1d){
+            std::vector<value>().swap(array1d);
+            int i;
+            value t;
+            for(i=0; i<arr1d.size(); i++){
+                t.is_float = true;
+                t.dec = arr1d[i];
+                array1d.push_back(t);
+            }
+            shape.one_dim = (int)arr1d.size();
+            std::vector<int>().swap(shape.two_dim);
+        }
+
+        NdArray(std::vector<std::string> arr1d){
+            std::vector<value>().swap(array1d);
+            int i;
+            value t;
+            for(i=0; i<arr1d.size(); i++){
+                t.is_obj = true;
+                t.line = arr1d[i];
+                array1d.push_back(t);
+            }
+
+            shape.one_dim = (int)arr1d.size();
+            std::vector<int>().swap(shape.two_dim);
+        }
+
+        NdArray(std::vector<value> arr1d){
+            array1d = arr1d;
+            shape.one_dim = (int)arr1d.size();
+            std::vector<int>().swap(shape.two_dim);
+        }
+
+        // Constructors overloading for 2d arrays and their shapes for different data types
+
+        NdArray(std::vector<std::vector<int>> arr2d){
+            std::vector<std::vector<value>>().swap(array2d);
+            int i, j;
+            value t;
+            t.is_int = true;
+            t.num = 0;
+            std::vector<std::vector<value>> arr(arr2d.size(), std::vector<value>(arr2d[0].size(), t));
+            for(i=0; i<array2d.size(); i++){
+                for(j=0; j<array2d[i].size(); j++){
+                    t.is_int = true;
+                    t.num = arr2d[i][j];
+                    arr[i][j] = t;
+                }
+            }
+            std::vector<int>().swap(shape.two_dim);
+            shape.two_dim.push_back((int)arr2d.size());
+            shape.two_dim.push_back((int)arr2d[0].size());
+        }
+
+        NdArray(std::vector<std::vector<float>> arr2d){
+            std::vector<std::vector<value>>().swap(array2d);
+            int i, j;
+            value t;
+            t.is_float = true;
+            t.dec = 0.0f;
+            std::vector<std::vector<value>> arr(arr2d.size(), std::vector<value>(arr2d[0].size(), t));
+            for(i=0; i<array2d.size(); i++){
+                for(j=0; j<array2d[i].size(); j++){
+                    t.is_float = true;
+                    t.num = arr2d[i][j];
+                    arr[i][j] = t;
+                }
+            }
+            std::vector<int>().swap(shape.two_dim);
+            shape.two_dim.push_back((int)arr2d.size());
+            shape.two_dim.push_back((int)arr2d[0].size());
+        }
+
+        NdArray(std::vector<std::vector<std::string>> arr2d){
+            std::vector<std::vector<value>>().swap(array2d);
+            int i, j;
+            value t;
+            t.is_obj = true;
+            t.line = "0.0";
+            std::vector<std::vector<value>> arr(arr2d.size(), std::vector<value>(arr2d[0].size(), t));
+            for(i=0; i<array2d.size(); i++){
+                for(j=0; j<array2d[i].size(); j++){
+                    t.is_obj = true;
+                    t.line = arr2d[i][j];
+                    arr[i][j] = t;
+                }
+            }
+            std::vector<int>().swap(shape.two_dim);
+            shape.two_dim.push_back((int)arr2d.size());
+            shape.two_dim.push_back((int)arr2d[0].size());
+        }
+
+        NdArray(std::vector<std::vector<value>> arr2d){
+            array2d = arr2d;
+            std::vector<int>().swap(shape.two_dim);
+            shape.two_dim.push_back((int)arr2d.size());
+            shape.two_dim.push_back((int)arr2d[0].size());
+        }
+
         dimensions shape;
 
         std::vector<std::vector<value>> operator+(std::vector<std::vector<value>> mat){
@@ -173,7 +287,14 @@ class NdArray{
         // implement flattening out the 2d array so far?
         // do we need non-changing implementation of 1d array?
         NdArray flatten(){
-            return;
+            std::vector<value> arr;
+            if(array1d.size() != 0){
+                int i;
+                for(i=0; i<array1d.size(); i++){
+                    arr.push_back(array1d[i]);
+                }
+                return arr;
+            }
         }
 
 
