@@ -262,6 +262,9 @@ class NdArray{
 
         dimensions shape;
 
+        // plan to investigate whether you can or cannot add float or int to string values like usual in Python, whether it is possible
+        // or not in OG numpy or not
+
         std::vector<std::vector<value>> operator+(std::vector<std::vector<value>> mat){
             int i, j;
             for(i=0; i<mat.size(); i++){
@@ -338,10 +341,11 @@ class NdArray{
                 out_dims = "(" + std::to_string(row) + "," + std::to_string(col) + ")";
             }
 
+            std::string error_line = "Could not broadcast array " + dims + " into " + out_dims;
+
             // implemented an indirect flattening out of the arrays, i.e. for case when col is not specified
             if(col == 0){
                 if(row != total_vals){
-                    std::string error_line = "Could not broadcast array " + dims + " into " + out_dims;
                     throw std::invalid_argument(error_line);
                 }else{
                     std::vector<value> arr;
@@ -364,7 +368,7 @@ class NdArray{
             value val;
             val.is_int = true;
             val.num = 0;
-
+            // implementation of special cases when one of the parameters is 1 and the other one is -1
             if(col == -1 && row == 1){
                 if(array1d.size() != 0){
                     new_arr.assign(1, std::vector<value>(array1d.size(), val));
@@ -411,6 +415,33 @@ class NdArray{
                     return vec;
                 }
             }
+
+            // implementation of basic reshaping
+
+            if(total_vals != row*col){
+                throw std::invalid_argument(error_line);
+            }
+
+            if(array2d.size() != 0){
+                for(i=0; i<array2d.size(); i++){
+                    for(j=0; j<array2d[i].size(); j++){
+                        array1d.push_back(array2d[i][j]);
+                    }
+                }
+            }
+            
+            new_arr.assign(row, std::vector<value>(col, val));
+            index = 0;
+            for(i=0; i<row; i++){
+                for(j=0; j<col; j++){
+                    new_arr[i][j] = array1d[index];
+                    index ++;
+                }
+            }
+
+            NdArray vec(new_arr);
+
+            return vec;
         }
         // yet to implement this one???
         // void array2d(std::vector<std::vector<value>> arr){
