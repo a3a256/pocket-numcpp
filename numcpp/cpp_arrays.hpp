@@ -312,7 +312,9 @@ class NdArray{
         // find out how reshaping work with 1d or does it reshape from 2d into 1d array
         // yet to implement for the case above and for cases when one of the parameters equals '-1'
         // implement overall
-        NdArray reshape(int row, int col){
+
+        // implement for general use, because already implemented for special cases
+        NdArray reshape(int row, int col=0){
             int i, j, total_vals, index;
             total_vals = -1;
             if(array1d.size() != 0){
@@ -320,7 +322,95 @@ class NdArray{
             }else{
                 total_vals = shape.two_dim[0] * shape.two_dim[1];
             }
+
+            // implemented shapes of an array to be reshaped for error line to throw when argument is invalid
+            std::string dims = "";
+            if(shape.two_dim.size() != 0){
+                dims += '(' + std::to_string(shape.two_dim[0]) + ',' + std::to_string(shape.two_dim[1]) + ')';
+            }else{
+                dims += '(' + std::to_string(shape.one_dim) + ",)";
+            }
+            // implement shapes of array that was supposed to be like when argument is invalid
+            std::string out_dims = "";
+            if(col == 0){
+                out_dims = "(" + std::to_string(row) + ",)";
+            }else{
+                out_dims = "(" + std::to_string(row) + "," + std::to_string(col) + ")";
+            }
+
+            // implemented an indirect flattening out of the arrays, i.e. for case when col is not specified
+            if(col == 0){
+                if(row != total_vals){
+                    std::string error_line = "Could not broadcast array " + dims + " into " + out_dims;
+                    throw std::invalid_argument(error_line);
+                }else{
+                    std::vector<value> arr;
+                    if(array1d.size() != 0){
+                        arr = array1d;
+                    }else{
+                        for(i=0; i<array2d.size(); i++){
+                            for(j=0; j<array2d[i].size(); j++){
+                                arr.push_back(array2d[i][j]);
+                            }
+                        }
+                    }
+
+                    NdArray vector(arr);
+                    return vector;
+                }
+            }
             std::vector<std::vector<value>> new_arr;
+
+            value val;
+            val.is_int = true;
+            val.num = 0;
+
+            if(col == -1 && row == 1){
+                if(array1d.size() != 0){
+                    new_arr.assign(1, std::vector<value>(array1d.size(), val));
+                    new_arr[0] = array1d;
+                    NdArray vec(new_arr);
+                    return vec;
+                }
+
+                if(array2d.size() != 0){
+                    new_arr.assign(1, std::vector<value>(total_vals, val));
+                    index = 0;
+                    for(i=0; i<array2d.size(); i++){
+                        for(j=0; j<array2d[i].size(); j++){
+                            new_arr[0][index] = array2d[i][j];
+                            index ++;
+                        }
+                    }
+
+                    NdArray vec(new_arr);
+
+                    return vec;
+                }
+            }
+
+            if(row == -1 && col == 1){
+                if(array1d.size() != 0){
+                    new_arr.assign(array1d.size(), std::vector<value>(1, val));
+                    for(i=0; i<array1d.size(); i++){
+                        new_arr[i][0] = array1d[i];
+                    }
+                    NdArray vec(new_arr);
+
+                    return vec;
+                }
+
+                if(array2d.size() != 0){
+                    new_arr.assign(total_vals, std::vector<value>(1, val));
+                    for(i=0; i<array2d.size(); i++){
+                        for(j=0; j<array2d[i].size(); j++){
+                            new_arr[index][0] = array2d[i][j];
+                        }
+                    }
+                    NdArray vec(new_arr);
+                    return vec;
+                }
+            }
         }
         // yet to implement this one???
         // void array2d(std::vector<std::vector<value>> arr){
