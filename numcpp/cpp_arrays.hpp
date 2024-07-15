@@ -429,7 +429,7 @@ class NdArray{
                     }
                 }
             }
-            
+
             new_arr.assign(row, std::vector<value>(col, val));
             index = 0;
             for(i=0; i<row; i++){
@@ -448,7 +448,35 @@ class NdArray{
         //     return;
         // }
 
-        std::vector<value> diag(){
+        // implementing diagonal method for internal use, using it on another NdArray, vetcors of different data type
+
+        NdArray diag(){
+
+            if(array1d.size() != 0){
+                value val;
+                if(array1d[0].is_float){
+                    val.is_float = true;
+                    val.dec = 0.0f;
+                }else if(array1d[0].is_int){
+                    val.is_int = true;
+                    val.num = 0;
+                }else{
+                    val.is_obj = true;
+                    val.line = "";
+                }
+                std::vector<std::vector<value>> new_arr(array1d.size(), std::vector<value>(array1d.size(), val));
+                int i, j;
+                for(i=0; i<new_arr.size(); i++){
+                    for(j=0; j<new_arr.size(); j++){
+                        if(i == j){
+                            new_arr[i][j] = array1d[i];
+                        }
+                    }
+                }
+
+                NdArray vec(new_arr);
+                return vec;
+            }
             std::vector<value> res;
             int i, j;
             for(i=0; i<array2d.size(); i++){
@@ -459,7 +487,178 @@ class NdArray{
                 }
             }
 
-            return res;
+            NdArray vec(res);
+
+            return vec;
+        }
+
+        NdArray diag(NdArray arr){
+
+            if(arr.array1d.size() != 0){
+                value val;
+                if(arr.array1d[0].is_float){
+                    val.is_float = true;
+                    val.dec = 0.0f;
+                }else if(arr.array1d[0].is_int){
+                    val.is_int = true;
+                    val.num = 0;
+                }else{
+                    val.is_obj = true;
+                    val.line = "";
+                }
+                std::vector<std::vector<value>> new_arr(arr.array1d.size(), std::vector<value>(arr.array1d.size(), val));
+                int i, j;
+                for(i=0; i<new_arr.size(); i++){
+                    for(j=0; j<new_arr.size(); j++){
+                        if(i == j){
+                            new_arr[i][j] = arr.array1d[i];
+                        }
+                    }
+                }
+
+                NdArray vec(new_arr);
+                return vec;
+            }
+            std::vector<value> res;
+            int i, j;
+            for(i=0; i<arr.array2d.size(); i++){
+                for(j=0; j<arr.array2d[0].size(); j++){
+                    if(i == j){
+                        res.push_back(arr.array2d[i][j]);
+                    }
+                }
+            }
+
+            NdArray vec(res);
+
+            return vec;
+        }
+        // diag method for integer vector
+        NdArray diag(std::vector<int> arr){
+            value val;
+            val.is_int = true;
+            val.num = 0;
+
+            std::vector<std::vector<value>> new_arr(arr.size(), std::vector<value>(arr.size(), val));
+
+            int i, j;
+            for(i=0; i<arr.size(); i++){
+                for(j=0; j<arr.size(); j++){
+                    if(i == j){
+                        val.num = arr[i];
+                        new_arr[i][j] = val;
+                    }
+                }
+            }
+
+            NdArray vec(new_arr);
+            return vec;
+        }
+
+        NdArray diag(std::vector<std::vector<int>> arr){
+            value val;
+            val.is_int = true;
+            val.num = 0;
+
+            std::vector<value> new_arr(arr.size(), val);
+
+            int i, j;
+            for(i=0; i<arr.size(); i++){
+                for(j=0; j<arr.size(); j++){
+                    if(i == j){
+                        val.num = arr[i][j];
+                        new_arr[i] = val;
+                    }
+                }
+            }
+
+            NdArray vec(new_arr);
+            return vec;
+        }
+        // diag method for float vectors
+        NdArray diag(std::vector<float> arr){
+            value val;
+            val.is_float = true;
+            val.dec = 0;
+
+            std::vector<std::vector<value>> new_arr(arr.size(), std::vector<value>(arr.size(), val));
+
+            int i, j;
+            for(i=0; i<arr.size(); i++){
+                for(j=0; j<arr.size(); j++){
+                    if(i == j){
+                        val.dec = arr[i];
+                        new_arr[i][j] = val;
+                    }
+                }
+            }
+
+            NdArray vec(new_arr);
+            return vec;
+        }
+
+        NdArray diag(std::vector<std::vector<float>> arr){
+            value val;
+            val.is_float = true;
+            val.dec = 0;
+
+            std::vector<value> new_arr(arr.size(), val);
+
+            int i, j;
+            for(i=0; i<arr.size(); i++){
+                for(j=0; j<arr.size(); j++){
+                    if(i == j){
+                        val.dec = arr[i][j];
+                        new_arr[i] = val;
+                    }
+                }
+            }
+
+            NdArray vec(new_arr);
+            return vec;
+        }
+
+        // implementing diag for string vectors
+        NdArray diag(std::vector<std::string> arr){
+            value val;
+            val.is_obj = true;
+            val.line = "";
+
+            std::vector<std::vector<value>> new_arr(arr.size(), std::vector<value>(arr.size(), val));
+
+            int i, j;
+            for(i=0; i<arr.size(); i++){
+                for(j=0; j<arr.size(); j++){
+                    if(i == j){
+                        val.line = arr[i];
+                        new_arr[i][j] = val;
+                    }
+                }
+            }
+
+            NdArray vec(new_arr);
+            return vec;
+        }
+
+        NdArray diag(std::vector<std::vector<std::string>> arr){
+            value val;
+            val.is_obj = true;
+            val.line = "";
+
+            std::vector<value> new_arr(arr.size(), val);
+
+            int i, j;
+            for(i=0; i<arr.size(); i++){
+                for(j=0; j<arr.size(); j++){
+                    if(i == j){
+                        val.line = arr[i][j];
+                        new_arr[i] = val;
+                    }
+                }
+            }
+
+            NdArray vec(new_arr);
+            return vec;
         }
 
         void transpose(){
