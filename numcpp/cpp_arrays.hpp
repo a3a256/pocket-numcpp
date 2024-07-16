@@ -146,6 +146,10 @@ class NdArray{
         // cout overload operator for NdArray class - definition
         friend std::ostream& operator<<(std::ostream& os, NdArray& arr);
 
+        // adding empty constructor as another edge case
+
+        NdArray(){}
+
         // Constructors overloading for 1d arrays and their shapes for different data types
 
         NdArray(std::vector<int> arr1d){
@@ -661,25 +665,128 @@ class NdArray{
             return vec;
         }
 
-        void transpose(){
-            if(arr1d.size() != 0){
-                to2d_arr();
+
+
+
+
+
+        // implementing transpose methods for 2d arrays. 1d arrays are all ignored and returned as they are but still edge cases for overload
+        // functions are implemented for different data types in methods' parameters
+
+        // as a built-in method, resembling np.array().T method
+        NdArray transpose(){
+            if(array1d.size() != 0){
+                return *this;
             }
 
             int i, j;
-            std::vector<std::vector<value>> res;
-            std::vector<value> temp;
-            for(i=0; i<arr2d[0].size(); i++){
-                for(j=0; j<arr2d.size(); j++){
-                    temp.push_back(arr2d[j][i]);
+            value val;
+            val.is_int = true;
+            val.num = 0;
+            std::vector<std::vector<value>> res(shape.two_dim[1], std::vector<value>(shape.two_dim[0], val));
+            for(i=0; i<array2d[0].size(); i++){
+                for(j=0; j<array2d.size(); j++){
+                    res[i][j] = array2d[j][i];
                 }
-                res.push_back(temp);
-                std::vector<T>().swap(temp);
             }
-            std::vector<T>().swap(temp);
 
-            arr2d = res;
-            std::vector<std::vector<T>>().swap(res);
+            NdArray vec(res);
+            return vec;
+        }
+
+
+        // this method accepts NdArray classes, similar to np.transpose() of Python version
+        NdArray transpose(NdArray arr){
+            if(arr.array1d.size() != 0){
+                return arr;
+            }
+
+            int i, j;
+            value val;
+            val.is_int = true;
+            val.num = 0;
+            std::vector<std::vector<value>> res(arr.shape.two_dim[1], std::vector<value>(arr.shape.two_dim[0], val));
+            for(i=0; i<arr.array2d[0].size(); i++){
+                for(j=0; j<arr.array2d.size(); j++){
+                    res[i][j] = arr.array2d[j][i];
+                }
+            }
+
+            NdArray vec(res);
+            return vec;
+        }
+
+        // this and the following three transposing methods designed for overloading for pretty much all edge cases regarding
+        // 2d vectors with int, float and string
+        // values stored in them
+        NdArray transpose(std::vector<std::vector<int>> arr){
+            int i, j;
+            value val;
+            val.is_int = true;
+            val.num = 0;
+            std::vector<std::vector<value>> res(arr[0].size(), std::vector<value>(arr.size(), val));
+            for(i=0; i<arr[0].size(); i++){
+                for(j=0; j<arr.size(); j++){
+                    val.num = arr[j][i];
+                    res[i][j] = val;
+                }
+            }
+
+            NdArray vec(res);
+            return vec;
+        }
+
+        NdArray transpose(std::vector<std::vector<float>> arr){
+            int i, j;
+            value val;
+            val.is_float = true;
+            val.dec = 0.0f;
+            std::vector<std::vector<value>> res(arr[0].size(), std::vector<value>(arr.size(), val));
+            for(i=0; i<arr[0].size(); i++){
+                for(j=0; j<arr.size(); j++){
+                    val.num = arr[j][i];
+                    res[i][j] = val;
+                }
+            }
+
+            NdArray vec(res);
+            return vec;
+        }
+
+        NdArray transpose(std::vector<std::vector<std::string>> arr){
+            int i, j;
+            value val;
+            val.is_obj = true;
+            val.line = "";
+            std::vector<std::vector<value>> res(arr[0].size(), std::vector<value>(arr.size(), val));
+            for(i=0; i<arr[0].size(); i++){
+                for(j=0; j<arr.size(); j++){
+                    val.line = arr[j][i];
+                    res[i][j] = val;
+                }
+            }
+
+            NdArray vec(res);
+            return vec;
+        }
+
+        // this and the following three overload methods are special cases for 1d vectors passed into transpose method
+        NdArray transpose(std::vector<int> arr){
+            NdArray vec(arr);
+
+            return vec;
+        }
+
+        NdArray transpose(std::vector<float> arr){
+            NdArray vec(arr);
+
+            return vec;
+        }
+
+        NdArray transpose(std::vector<std::string> arr){
+            NdArray vec(arr);
+
+            return vec;
         }
 
         void zeros(std::vector<int> dims){
