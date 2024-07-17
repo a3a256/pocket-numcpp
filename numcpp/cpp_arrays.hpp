@@ -61,31 +61,230 @@ struct value{
         return line < val.line;
     }
 
-    value operator+=(const float v){
-        if(is_int){
-            is_int = false;
-            is_float = true;
-            dec = (float)num + v;
-            return *this;
-        }
-        if(is_float){
-            dec += v;
-            return *this;
-        }
-        if(is_obj){
-            line += std::to_string(v);
 
-            return *this;
-        }
-    }
     // up to make it up for various scenarios like int + str, float + str, float + int, int + int, float + float, etc.
     value operator+=(const value v){
-        if(v.is_int || v.is_float && is_obj){
-            line += std::to_string((v.is_int)?(v.num):(v.dec));
+        if(is_obj || v.is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
         }
-        // if(is_float){
-        //     if()
-        // }
+
+        if(is_float && v.is_float){
+            dec += v.dec;
+        }else if(is_int && v.is_int){
+            num += v.num;
+        }else{
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+
+        return *this;
+    }
+
+    value operator+=(const int v){
+        if(is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_int){
+            num += v;
+        }else{
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+        return *this;
+    }
+
+    value operator+=(const float v){
+        if(is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_float){
+            dec += v;
+        }else{
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+
+        return *this;
+    }
+
+    value operator+=(const std::string v){
+        if(is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_float || is_int){
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+
+        return *this;
+    }
+
+    // implementing overloading operators for +
+    value operator+(const value v){
+        if(is_obj || v.is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_float && v.is_float){
+            dec += v.dec;
+        }else if(is_int && v.is_int){
+            num += v.num;
+        }else{
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+
+        return *this;
+    }
+
+    value operator+(const int v){
+        if(is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_int){
+            num += v;
+        }else{
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+        return *this;
+    }
+
+    value operator+(const float v){
+        if(is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_float){
+            dec += v;
+        }else{
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+
+        return *this;
+    }
+
+    value operator+(const std::string v){
+        if(is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_float || is_int){
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+
+        return *this;
+    }
+
+
+    // implementing overloading operators such as - and -=
+    value operator-=(const value v){
+        if(is_obj || v.is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_float && v.is_float){
+            dec -= v.dec;
+        }else if(is_int && v.is_int){
+            num -= v.num;
+        }else{
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+
+        return *this;
+    }
+
+    value operator-=(const int v){
+        if(is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_int){
+            num -= v;
+        }else{
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+        return *this;
+    }
+
+    value operator-=(const float v){
+        if(is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_float){
+            dec -= v;
+        }else{
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+
+        return *this;
+    }
+
+    value operator-=(const std::string v){
+        if(is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_float || is_int){
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+
+        return *this;
+    }
+
+    // implementing overloading operators for +
+    value operator-(const value v){
+        if(is_obj || v.is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_float && v.is_float){
+            dec -= v.dec;
+        }else if(is_int && v.is_int){
+            num -= v.num;
+        }else{
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+
+        return *this;
+    }
+
+    value operator-(const int v){
+        if(is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_int){
+            num -= v;
+        }else{
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+        return *this;
+    }
+
+    value operator-(const float v){
+        if(is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_float){
+            dec -= v;
+        }else{
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+
+        return *this;
+    }
+
+    value operator-(const std::string v){
+        if(is_obj){
+            throw std::invalid_argument("Does not support str item assignment");
+        }
+
+        if(is_float || is_int){
+            throw std::invalid_argument("Does not support add function for different data types");
+        }
+
+        return *this;
     }
 
     friend std::ostream& operator<<(std::ostream& os, const value& val);
