@@ -39,7 +39,7 @@ struct value{
     int num;
     float dec;
     std::string line;
-    bool is_int, is_float, is_obj;
+    bool is_int=false, is_float=false, is_obj=false;
 
     bool operator>(const value &val) const{
         if(is_int){
@@ -59,6 +59,66 @@ struct value{
             return dec < val.dec;
         }
         return line < val.line;
+    }
+
+    // implementing assignment overload "=" operators
+
+    value operator=(const int v){
+
+        if(!is_obj && !is_int && !is_float){
+            is_int = true;
+            num = v;
+            return *this;
+        }
+
+        if(is_obj){
+            throw std::invalid_argument("Cannot assign string to int/float dtype");
+        }
+
+        if(is_float){
+            dec = (float)v;
+            return *this;
+        }
+
+        num = v;
+        return *this;
+    }
+
+    value operator=(const float v){
+
+        if(!is_obj && !is_int && !is_float){
+            is_float = true;
+            dec = v;
+            return *this;
+        }
+
+        if(is_obj){
+            throw std::invalid_argument("Cannot assign string to int/float dtype");
+        }
+
+        if(is_int){
+            num = (int)v;
+            return *this;
+        }
+
+        dec = v;
+        return *this;
+    }
+
+    value operator=(const std::string v){
+
+        if(!is_obj && !is_int && !is_float){
+            is_obj = true;
+            line = v;
+            return *this;
+        }
+
+        if(is_int || is_float){
+            throw std::invalid_argument("Cannot assign int/float to string dtype");
+        }
+
+        line = v;
+        return *this;
     }
 
 
@@ -288,6 +348,7 @@ struct value{
     }
 
     // implementing multiplication overload operators
+    // implement the change of dtypes from int to float and from float to int(but most likely implement from int to float)
 
     value operator*=(const value v){
         if(is_obj || v.is_obj){
