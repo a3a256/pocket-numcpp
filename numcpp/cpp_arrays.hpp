@@ -1311,6 +1311,41 @@ class NdArray{
             }
         }
 
+        // so far astype method implemented for converting from float to int for 1d arrays
+
+        // yet to implement for other dtypes
+
+        // implement an error in case to trasform from string to float/int
+
+        NdArray astype(std::string data_type){
+            if(array1d.size() != 0){
+                value val;
+                if(data_type == "string"){
+                    val.is_obj = true;
+                    val.line = "";
+                }else if(data_type == "float"){
+                    val.is_float = true;
+                    val.dec = 0.0f;
+                }else{
+                    val.is_int = true;
+                    val.num = 0;
+                }
+                std::vector<value> res(array1d.size(), val);
+                int i;
+                for(i=0; i<res.size(); i++){
+                    if(data_type == "string"){
+                        if(array1d[i].is_float){
+                            res[i].line = std::to_string(array1d[i].dec);
+                        }else if(array1d[i].is_int){
+                            res[i].line = std::to_string(array1d[i].num);
+                        }else{
+                            res[i] = array1d[i];
+                        }
+                    }
+                }
+            }
+        }
+
         void dot(NdArray<T> arr){
             std::vector<int> sh = shape();
             int m1 = sh[0], n1 = sh[1];
