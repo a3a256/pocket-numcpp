@@ -1318,20 +1318,20 @@ class NdArray{
         // implement an error in case to trasform from string to float/int
 
         NdArray astype(std::string data_type){
+            value val;
+            int i, j;
+            if(data_type == "string"){
+                val.is_obj = true;
+                val.line = "";
+            }else if(data_type == "float"){
+                val.is_float = true;
+                val.dec = 0.0f;
+            }else{
+                val.is_int = true;
+                val.num = 0;
+            }
             if(array1d.size() != 0){
-                value val;
-                if(data_type == "string"){
-                    val.is_obj = true;
-                    val.line = "";
-                }else if(data_type == "float"){
-                    val.is_float = true;
-                    val.dec = 0.0f;
-                }else{
-                    val.is_int = true;
-                    val.num = 0;
-                }
                 std::vector<value> res(array1d.size(), val);
-                int i;
                 for(i=0; i<res.size(); i++){
                     if(data_type == "string"){
                         if(array1d[i].is_float){
@@ -1341,9 +1341,68 @@ class NdArray{
                         }else{
                             res[i] = array1d[i];
                         }
+                    }else if(data_type == "float"){
+                        if(array1d[i].is_float){
+                            res[i] = array1d[i];
+                        }else if(array1d[i].is_int){
+                            res[i].dec = (float)array1d[i].num;
+                        }else{
+                            res[i].dec = std::stof(array1d[i].line);
+                        }
+                    }else if(data_type == "int"){
+                        if(array1d[i].is_float){
+                            res[i].num = (int)array1d[i].dec;
+                        }else if(array1d[i].is_int){
+                            res[i] = array1d[i];
+                        }else{
+                            res[i].num = std::stoi(array1d[i].line);
+                        }
+                    }else{
+                        throw std::invalid_argument("Data type not listed");
+                    }
+                }
+
+                NdArray vec(res);
+
+                return vec;
+            }
+
+            std::vector<std::vector<value>> res(array2d.size(), std::vector<value>(array2d[0].size(), val));
+            for(i=0; i<res.size(); i++){
+                for(j=0; j<res[i].size(); j++){
+                    if(data_type == "string"){
+                        if(array2d[i][j].is_float){
+                            res[i][j].line = std::to_string(array2d[i][j].dec);
+                        }else if(array2d[i][j].is_int){
+                            res[i][j].line = std::to_string(array2d[i][j].num);
+                        }else{
+                            res[i][j] = array2d[i][j];
+                        }
+                    }else if(data_type == "float"){
+                        if(array2d[i][j].is_float){
+                            res[i][j] = array2d[i][j];
+                        }else if(array2d[i][j].is_int){
+                            res[i][j].dec = (float)array2d[i][j].num;
+                        }else{
+                            res[i][j].dec = std::stof(array2d[i][j].line);
+                        }
+                    }else if(data_type == "int"){
+                        if(array2d[i][j].is_float){
+                            res[i][j].num = (int)array2d[i][j].dec;
+                        }else if(array2d[i][j].is_int){
+                            res[i][j] = array2d[i][j];
+                        }else{
+                            res[i][j].num = std::stoi(array2d[i][j].line);
+                        }
+                    }else{
+                        throw std::invalid_argument("Data type not listed");
                     }
                 }
             }
+
+            NdArray vec(res);
+
+            return vec;
         }
 
         void dot(NdArray<T> arr){
