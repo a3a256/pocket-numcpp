@@ -3,6 +3,7 @@
 #include <vector>
 #include <stdexcept>
 #include <string>
+#include <set>
 
 // namespace narr{
 //     template<size_t dimcount, typename T> struct nd_arr{
@@ -1403,6 +1404,29 @@ class NdArray{
             NdArray vec(res);
 
             return vec;
+        }
+
+        // unique method implementation - planning on relocating this classic method to private class
+        // another plan is to make overload functions that would change the data types of array and represent vectors with various
+        // dtypes in their containers as NdArrays and put the into a private function - seems like a better idea
+        // same plan is for other functions - such as transpose, astype etc.
+
+        // another plan is to add more constructors that would accept other containers, such as sets with various data types
+
+        NdArray unique(NdArray arr){
+            std::set<value> stk;
+            int i, j;
+            if(arr.shape.two_dim.size() == 0){
+                for(i=0; i<arr.shape.one_dim; i++){
+                    stk.insert(arr.array1d[i]);
+                }
+            }
+
+            for(i=0; i<arr.shape.two_dim[0]; i++){
+                for(j=0; j<arr.shape.two_dim[1]; j++){
+                    stk.insert(arr.array2d[i][j]);
+                }
+            }
         }
 
         void dot(NdArray<T> arr){
