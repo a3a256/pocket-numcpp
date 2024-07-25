@@ -639,6 +639,40 @@ class NdArray{
 
         // Constructors overloading for 1d arrays and their shapes for different data types
 
+        // sub problem of constructors implemented partially - constructors that would accept set of unique values with various data types
+        // only implemented to output 1d arrays
+        // research whether there are scenarios for unique() method that would output 2-d arrays of unique values
+        // implement them
+
+        NdArray(std::set<int> stk){
+            std::vector<value>().swap(array1d);
+            value t;
+            t.is_int = true;
+            for(auto it: stk){
+                t.num = it;
+                array1d.push_back(t);
+            }
+        }
+
+        NdArray(std::set<float> stk){
+            std::vector<value>().swap(array1d);
+            value t;
+            t.is_float = true;
+            for(auto it: stk){
+                t.dec = it;
+                array1d.push_back(t);
+            }
+        }
+
+        NdArray(std::set<value> stk){
+            std::vector<value>().swap(array1d);
+            for(auto it: stk){
+                array1d.push_back(it);
+            }
+        }
+
+
+
         NdArray(std::vector<int> arr1d){
             std::vector<value>().swap(array1d);
             int i;
