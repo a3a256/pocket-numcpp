@@ -622,6 +622,8 @@ class NdArray{
         std::vector<value> array1d;
         std::vector<std::vector<value>> array2d;
 
+
+        std::string dtype = "";
         // Implemented struct shape for numcpp array
 
         struct dimensions{
@@ -1495,6 +1497,49 @@ class NdArray{
 
 
     private:
+
+        // implemented basic matrix multiplication between two NdArray 2-d matrices
+        // yet to research the interaction between 1d and 2d matrices and between 1d matrices
+        // implement the error in shape broadcasting in future to throw an error
+
+        NdArray mat_mul(NdArray one, NdArray two){
+            if(one.dtype == "float" && two.dtype == "int"){
+                two = two.astype("float");
+            }else if(one.dtype == "int" && two.dtype == "float"){
+                one = one.astype("float");
+            }
+
+            value val;
+            if(one.dtype == "float"){
+                val.is_float = true;
+                val.dec = 0.0f;
+            }else if(two.dtype == "int"){
+                val.is_int = true;
+                val.num = 0;
+            }
+
+            value temp;
+
+            std::vector<std::vector<value>> res;
+            std::vector<value> t_mat;
+
+            int i, j, k;
+            for(i=0; i<one.shape.two_dim[0]; i++){
+                for(j=0; j<two.shape.two_dim[1]; j++){
+                    temp = val;
+                    for(k=0; k<one.shape.two_dim[1]; k++){
+                        val += one.array2d[i][k]*two.array2d[k][j];
+                    }
+                    t_mat.push_back(val);
+                }
+                res.push_back(t_mat);
+                std::vector<value>().swap(t_mat);
+            }
+
+            NdArray vec(res);
+
+            return vec;
+        }
 
     // added function to show
 
