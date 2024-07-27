@@ -1465,34 +1465,39 @@ class NdArray{
             }
         }
 
-        void dot(NdArray<T> arr){
-            std::vector<int> sh = shape();
-            int m1 = sh[0], n1 = sh[1];
-            sh = arr.shape();
-            int m2 = sh[0], n2 = sh[1];
-            std::string line = "Cannot multiply matrices of size ";
-            line += '(' + std::to_string(m1) + ',' + std::to_string(n2) + ')';
-            line += " and (" + std::to_string(m2) + ',' + std::to_string(n2) + ')';
-            if(n1 != m2){
-                throw std::invalid_argument(line);
-            }
-            int i, j, k;
-            std::vector<std::vector<T>> res;
-            std::vector<T> temp;
-            T sum;
-            for(i=0; i<m1; i++){
-                for(j=0; j<n2; j++){
-                    sum = 0;
-                    for(k=0; k<n1; k++){
-                        sum += arr2d[i][k]*arr.arr2d[k][j];
-                    }
-                    temp.push_back(sum);
-                }
-                res.push_back(temp);
-                std::vector<T>().swap(temp);
-            }
-            arr2d = res;
-            std::vector<std::vector<T>>().swap(res);
+        // implementation of publicly accessible method of dot - multiplication of two 2-d matrices of various dtypes
+        // overload functions for both vector containers with various dtypes and their combinations
+
+        NdArray dot(NdArray arr_one, NdArray arr_two){
+            return mat_mul(arr_one, arr_two);
+        }
+
+        NdArray dot(std::vector<std::vector<int>> one, std::vector<std::vector<int>> two){
+            NdArray arr_one(one);
+            NdArray arr_two(two);
+
+            return mat_mul(arr_one, arr_two);
+        }
+
+        NdArray dot(std::vector<std::vector<float>> one, std::vector<std::vector<float>> two){
+            NdArray arr_one(one);
+            NdArray arr_two(two);
+
+            return mat_mul(arr_one, arr_two);
+        }
+
+        NdArray dot(std::vector<std::vector<int>> one, std::vector<std::vector<float>> two){
+            NdArray arr_one(one);
+            NdArray arr_two(two);
+
+            return mat_mul(arr_one, arr_two);
+        }
+
+        NdArray dot(std::vector<std::vector<float>> one, std::vector<std::vector<int>> two){
+            NdArray arr_one(one);
+            NdArray arr_two(two);
+
+            return mat_mul(arr_one, arr_two);
         }
 
 
