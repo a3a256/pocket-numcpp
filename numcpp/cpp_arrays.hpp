@@ -1456,6 +1456,9 @@ class NdArray{
                 for(i=0; i<arr.shape.one_dim; i++){
                     stk.insert(arr.array1d[i]);
                 }
+                NdArray vec(stk);
+
+                return vec;
             }
 
             for(i=0; i<arr.shape.two_dim[0]; i++){
@@ -1463,6 +1466,8 @@ class NdArray{
                     stk.insert(arr.array2d[i][j]);
                 }
             }
+
+            NdArray vec(stk);
         }
 
         // implementation of publicly accessible method of dot - multiplication of two 2-d matrices of various dtypes
