@@ -1447,27 +1447,49 @@ class NdArray{
         // dtypes in their containers as NdArrays and put the into a private function - seems like a better idea
         // same plan is for other functions - such as transpose, astype etc.
 
-        // another plan is to add more constructors that would accept other containers, such as sets with various data types
+        // implemented unique method that would accept NdArrays as private method
+        // private unique method solves basic solution for both 1d and 2d array
+        // public unique methods are built for all types of basic possible inputs
 
         NdArray unique(NdArray arr){
-            std::set<value> stk;
-            int i, j;
-            if(arr.shape.two_dim.size() == 0){
-                for(i=0; i<arr.shape.one_dim; i++){
-                    stk.insert(arr.array1d[i]);
-                }
-                NdArray vec(stk);
+            return unique_method(arr);
+        }
 
-                return vec;
-            }
+        NdArray unique(std::vector<int> arr){
+            NdArray vec(arr);
+            return unique_method(arr);
+        }
 
-            for(i=0; i<arr.shape.two_dim[0]; i++){
-                for(j=0; j<arr.shape.two_dim[1]; j++){
-                    stk.insert(arr.array2d[i][j]);
-                }
-            }
+        NdArray unique(std::vector<float> arr){
+            NdArray vec(arr);
+            return unique_method(vec);
+        }
 
-            NdArray vec(stk);
+        NdArray unique(std::vector<std::string> arr){
+            NdArray vec(arr);
+            return unique_method(vec);
+        }
+
+        NdArray unique(std::vector<std::vector<int>> arr){
+            NdArray vec(arr);
+            return unique_method(arr);
+        }
+
+        NdArray unique(std::vector<std::vector<float>> arr){
+            NdArray vec(arr);
+            return unique_method(vec);
+        }
+
+        NdArray unique(std::vector<std::vector<std::string>> arr){
+            NdArray vec(arr);
+            return unique_method(vec);
+        }
+
+
+        // implementation of nunique method showing the number of unique values (not the unique values themselves)
+
+        int nunique(NdArray arr){
+            return unique(arr).shape.one_dim;
         }
 
         // implementation of publicly accessible method of dot - multiplication of two 2-d matrices of various dtypes
@@ -1549,6 +1571,27 @@ class NdArray{
             NdArray vec(res);
 
             return vec;
+        }
+
+        NdArray unique_method(NdArray arr){
+            std::set<value> stk;
+            int i, j;
+            if(arr.shape.two_dim.size() == 0){
+                for(i=0; i<arr.shape.one_dim; i++){
+                    stk.insert(arr.array1d[i]);
+                }
+                NdArray vec(stk);
+
+                return vec;
+            }
+
+            for(i=0; i<arr.shape.two_dim[0]; i++){
+                for(j=0; j<arr.shape.two_dim[1]; j++){
+                    stk.insert(arr.array2d[i][j]);
+                }
+            }
+
+            NdArray vec(stk);
         }
 
     // added function to show
