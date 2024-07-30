@@ -1330,7 +1330,7 @@ class NdArray{
             }
         }
 
-        void ones(std::vector<int> dims){
+        NdArray ones(std::vector<int> dims){
             int n = dims.size();
             value val;
             val.is_int = true;
@@ -1346,6 +1346,8 @@ class NdArray{
                 array2d = res;
                 std::vector<std::vector<value>>().swap(res);
             }
+
+            return *this;
         }
 
         // so far astype method implemented for converting from float to int for 1d arrays
