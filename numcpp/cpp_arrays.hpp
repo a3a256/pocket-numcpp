@@ -1425,7 +1425,37 @@ class NdArray{
         // implementation of nunique method showing the number of unique values (not the unique values themselves)
 
         int nunique(NdArray arr){
-            return unique(arr).shape.one_dim;
+            return nunique_method(arr);
+        }
+
+        int nunique(std::vector<std::vector<int>> arr){
+            NdArray vec(arr);
+            return nunique_method(vec);
+        }
+
+        int nunique(std::vector<std::vector<float>> arr){
+            NdArray vec(arr);
+            return nunique_method(vec);
+        }
+
+        int nunique(std::vector<std::vector<std::string>> arr){
+            NdArray vec(arr);
+            return nunique_method(vec);
+        }
+
+        int nunique(std::vector<int> arr){
+            NdArray vec(arr);
+            return nunique_method(vec);
+        }
+
+        int nunique(std::vector<float> arr){
+            NdArray vec(arr);
+            return nunique_method(vec);
+        }
+
+        int nunique(std::vector<std::string> arr){
+            NdArray vec(arr);
+            return nunique_method(vec);
         }
 
         // implementation of publicly accessible method of dot - multiplication of two 2-d matrices of various dtypes
@@ -1548,6 +1578,10 @@ class NdArray{
 
             NdArray vec(res);
             return vec;
+        }
+
+        int nunique_method(NdArray arr){
+            return unique(arr).shape.one_dim;
         }
 
     // added function to show
