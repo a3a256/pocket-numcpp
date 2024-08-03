@@ -1558,6 +1558,8 @@ class NdArray{
             }
 
             NdArray vec(stk);
+
+            return vec;
         }
         // this method accepts NdArray classes, similar to np.transpose() of Python version but implemente as overloading function
         NdArray transpose_method(NdArray arr){

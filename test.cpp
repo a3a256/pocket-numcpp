@@ -5,32 +5,20 @@
 
 int main(){
 
-    NdArray<int> np;
+    std::vector<int> arr = {1, 2, 3, 3, 3, 4};
 
-    std::vector<std::vector<int>> arr = {{1, 2, 3, 4, 5}};
-    NdArray<int> np1;
+    NdArray n(arr);
 
-    np1.array2d({{1}, {2}, {3}, {4}, {5}});
+    //tested cout overload function - working fine
 
-    np.array2d(arr);
+    std::cout << n << '\n';
 
-    np1.dot(np);
+    // currently testing unique method
 
-    np1.show();
+    NdArray np;
 
-    np1.ones({1, 2});
-    np1.show();
+    n = np.unique(n);
 
-    // narr::nd_arr<2, int>::type arr1;
-    // arr1 = arr;
-
-    // np.show();
-
-    // std::vector<int> di = np.diag();
-
-    // np.transpose();
-    // np.show();
-
-
+    std::cout << n << '\n';
     return 0;
 }
