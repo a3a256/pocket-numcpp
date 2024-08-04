@@ -654,6 +654,9 @@ class NdArray{
                 t.num = it;
                 array1d.push_back(t);
             }
+
+            shape.one_dim = array1d.size();
+            std::set<int>().swap(stk);
         }
 
         NdArray(std::set<float> stk){
@@ -664,6 +667,7 @@ class NdArray{
                 t.dec = it;
                 array1d.push_back(t);
             }
+            shape.one_dim = array1d.size();
         }
 
         NdArray(std::set<value> stk){
@@ -671,6 +675,8 @@ class NdArray{
             for(auto it: stk){
                 array1d.push_back(it);
             }
+
+            shape.one_dim = array1d.size();
         }
 
 

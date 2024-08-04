@@ -19,6 +19,6 @@ int main(){
 
     n = np.unique(n);
 
-    std::cout << n << '\n';
+    std::cout << np.nunique(arr) << '\n';
     return 0;
 }
