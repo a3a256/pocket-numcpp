@@ -735,13 +735,15 @@ class NdArray{
             value t;
             t.is_int = true;
             t.num = 0;
-            std::vector<std::vector<value>> arr(arr2d.size(), std::vector<value>(arr2d[0].size(), t));
-            for(i=0; i<array2d.size(); i++){
-                for(j=0; j<array2d[i].size(); j++){
+            std::vector<value> temp;
+            for(i=0; i<arr2d.size(); i++){
+                for(j=0; j<arr2d[i].size(); j++){
                     t.is_int = true;
                     t.num = arr2d[i][j];
-                    arr[i][j] = t;
+                    temp.push_back(t);
                 }
+                array2d.push_back(temp);
+                std::vector<value>().swap(temp);
             }
             std::vector<int>().swap(shape.two_dim);
             shape.two_dim.push_back((int)arr2d.size());
@@ -754,13 +756,15 @@ class NdArray{
             value t;
             t.is_float = true;
             t.dec = 0.0f;
-            std::vector<std::vector<value>> arr(arr2d.size(), std::vector<value>(arr2d[0].size(), t));
-            for(i=0; i<array2d.size(); i++){
-                for(j=0; j<array2d[i].size(); j++){
+            std::vector<value> temp;
+            for(i=0; i<arr2d.size(); i++){
+                for(j=0; j<arr2d[i].size(); j++){
                     t.is_float = true;
                     t.num = arr2d[i][j];
-                    arr[i][j] = t;
+                    temp.push_back(t);
                 }
+                array2d.push_back(temp);
+                std::vector<value>().swap(temp);
             }
             std::vector<int>().swap(shape.two_dim);
             shape.two_dim.push_back((int)arr2d.size());
@@ -773,13 +777,15 @@ class NdArray{
             value t;
             t.is_obj = true;
             t.line = "0.0";
-            std::vector<std::vector<value>> arr(arr2d.size(), std::vector<value>(arr2d[0].size(), t));
-            for(i=0; i<array2d.size(); i++){
-                for(j=0; j<array2d[i].size(); j++){
+            std::vector<value> temp;
+            for(i=0; i<arr2d.size(); i++){
+                for(j=0; j<arr2d[i].size(); j++){
                     t.is_obj = true;
                     t.line = arr2d[i][j];
-                    arr[i][j] = t;
+                    temp.push_back(t);
                 }
+                array2d.push_back(temp);
+                std::vector<value>().swap(temp);
             }
             std::vector<int>().swap(shape.two_dim);
             shape.two_dim.push_back((int)arr2d.size());
