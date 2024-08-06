@@ -1118,7 +1118,7 @@ class NdArray{
         NdArray diag(std::vector<float> arr){
             value val;
             val.is_float = true;
-            val.dec = 0;
+            val.dec = 0.0f;
 
             std::vector<std::vector<value>> new_arr(arr.size(), std::vector<value>(arr.size(), val));
 

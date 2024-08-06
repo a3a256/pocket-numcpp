@@ -29,5 +29,18 @@ int main(){
     std::cout << v << '\n';
     v = v.flatten();
     std::cout << v << '\n';
+
+    // testing diag method
+
+    std::vector<std::vector<float>> arr2 = {{1.2f, 2.3f, 5.1f}, {4.5f, 9.8f, 10.2f}, {3.2f, 4.3f, 7.1f}};
+
+    v = np.diag(arr2);
+
+    v = v.flatten();
+
+    v = np.diag(v);
+
+    std::cout << "checking diag function\n";
+    std::cout << v << '\n';
     return 0;
 }
