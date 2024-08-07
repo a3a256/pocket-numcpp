@@ -760,7 +760,7 @@ class NdArray{
             for(i=0; i<arr2d.size(); i++){
                 for(j=0; j<arr2d[i].size(); j++){
                     t.is_float = true;
-                    t.num = arr2d[i][j];
+                    t.dec = arr2d[i][j];
                     temp.push_back(t);
                 }
                 array2d.push_back(temp);
@@ -1580,14 +1580,14 @@ class NdArray{
             }
 
             int i, j;
-            value val;
-            val.is_int = true;
-            val.num = 0;
-            std::vector<std::vector<value>> res(arr.shape.two_dim[1], std::vector<value>(arr.shape.two_dim[0], val));
+            std::vector<std::vector<value>> res;
+            std::vector<value> temp;
             for(i=0; i<arr.array2d[0].size(); i++){
                 for(j=0; j<arr.array2d.size(); j++){
-                    res[i][j] = arr.array2d[j][i];
+                    temp.push_back(arr.array2d[j][i]);
                 }
+                res.push_back(temp);
+                std::vector<value>().swap(temp);
             }
 
             NdArray vec(res);

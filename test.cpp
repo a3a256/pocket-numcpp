@@ -5,42 +5,38 @@
 
 int main(){
 
-    std::vector<int> arr = {1, 2, 3, 3, 3, 4};
+    // testing transpose functions
 
-    NdArray n(arr);
+    std::vector<std::vector<int>> int_arr = {{2, 6, 17}, {7, 1, 9}};
+    std::vector<std::vector<float>> float_arr = {{2.4f, 3.1f, 8.6f}, {7.9f, 6.4f, 4.9f}};
 
-    //tested cout overload function - working fine
-
-    std::cout << n << '\n';
-
-    // currently testing unique method
-
+    NdArray fl_arr(float_arr);
+    NdArray in_arr(int_arr);
     NdArray np;
 
-    n = np.unique(n);
+    np = np.transpose(fl_arr);
 
-    std::cout << np.nunique(arr) << '\n';
+    std::cout << "NdArray dtype\n";
 
-    // testing flattening function
+    std::cout << "Original float array\n"<< fl_arr << '\n';
 
-    std::vector<std::vector<int>> arr1 = {{1, 2, 3}, {4, 5, 6}};
+    std::cout << "Float transposing\n" << np << '\n';
 
-    NdArray v(arr1);
-    std::cout << v << '\n';
-    v = v.flatten();
-    std::cout << v << '\n';
+    np = np.transpose(in_arr);
 
-    // testing diag method
+    std::cout << "Original float array\n"<< in_arr << '\n';
 
-    std::vector<std::vector<float>> arr2 = {{1.2f, 2.3f, 5.1f}, {4.5f, 9.8f, 10.2f}, {3.2f, 4.3f, 7.1f}};
+    std::cout << "Float transposing\n" << np << '\n';
 
-    v = np.diag(arr2);
+    fl_arr = np.transpose(float_arr);
 
-    v = v.flatten();
+    std::cout << "Vector dtype\n";
 
-    v = np.diag(v);
+    std::cout << "Float transposing\n" << fl_arr << '\n';
 
-    std::cout << "checking diag function\n";
-    std::cout << v << '\n';
+    in_arr = np.transpose(int_arr);
+
+    std::cout << "Float transposing\n" << fl_arr << '\n';
+
     return 0;
 }
