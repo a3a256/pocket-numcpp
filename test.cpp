@@ -7,36 +7,14 @@ int main(){
 
     // testing transpose functions
 
-    std::vector<std::vector<int>> int_arr = {{2, 6, 17}, {7, 1, 9}};
-    std::vector<std::vector<float>> float_arr = {{2.4f, 3.1f, 8.6f}, {7.9f, 6.4f, 4.9f}};
+    std::vector<std::vector<int>> one = {{2, 6}, {7, 1}};
+    std::vector<std::vector<int>> two = {{5, 6}, {9, 1}};
 
-    NdArray fl_arr(float_arr);
-    NdArray in_arr(int_arr);
     NdArray np;
 
-    np = np.transpose(fl_arr);
+    np = np.dot(one, two);
 
-    std::cout << "NdArray dtype\n";
-
-    std::cout << "Original float array\n"<< fl_arr << '\n';
-
-    std::cout << "Float transposing\n" << np << '\n';
-
-    np = np.transpose(in_arr);
-
-    std::cout << "Original float array\n"<< in_arr << '\n';
-
-    std::cout << "Float transposing\n" << np << '\n';
-
-    fl_arr = np.transpose(float_arr);
-
-    std::cout << "Vector dtype\n";
-
-    std::cout << "Float transposing\n" << fl_arr << '\n';
-
-    in_arr = np.transpose(int_arr);
-
-    std::cout << "Float transposing\n" << fl_arr << '\n';
+    std::cout << np << '\n';
 
     return 0;
 }

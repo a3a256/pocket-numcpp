@@ -656,6 +656,7 @@ class NdArray{
             }
 
             shape.one_dim = array1d.size();
+            dtype = "int";
             std::set<int>().swap(stk);
         }
 
@@ -667,6 +668,7 @@ class NdArray{
                 t.dec = it;
                 array1d.push_back(t);
             }
+            dtype = "float";
             shape.one_dim = array1d.size();
         }
 
@@ -675,7 +677,7 @@ class NdArray{
             for(auto it: stk){
                 array1d.push_back(it);
             }
-
+            dtype = "object";
             shape.one_dim = array1d.size();
         }
 
@@ -690,6 +692,7 @@ class NdArray{
                 t.num = arr1d[i];
                 array1d.push_back(t);
             }
+            dtype = "int";
             shape.one_dim = (int)arr1d.size();
             std::vector<int>().swap(shape.two_dim);
         }
@@ -703,6 +706,7 @@ class NdArray{
                 t.dec = arr1d[i];
                 array1d.push_back(t);
             }
+            dtype = "float";
             shape.one_dim = (int)arr1d.size();
             std::vector<int>().swap(shape.two_dim);
         }
@@ -716,7 +720,7 @@ class NdArray{
                 t.line = arr1d[i];
                 array1d.push_back(t);
             }
-
+            dtype = "object";
             shape.one_dim = (int)arr1d.size();
             std::vector<int>().swap(shape.two_dim);
         }
@@ -745,6 +749,7 @@ class NdArray{
                 array2d.push_back(temp);
                 std::vector<value>().swap(temp);
             }
+            dtype = "int";
             std::vector<int>().swap(shape.two_dim);
             shape.two_dim.push_back((int)arr2d.size());
             shape.two_dim.push_back((int)arr2d[0].size());
@@ -766,6 +771,7 @@ class NdArray{
                 array2d.push_back(temp);
                 std::vector<value>().swap(temp);
             }
+            dtype = "float";
             std::vector<int>().swap(shape.two_dim);
             shape.two_dim.push_back((int)arr2d.size());
             shape.two_dim.push_back((int)arr2d[0].size());
@@ -787,6 +793,7 @@ class NdArray{
                 array2d.push_back(temp);
                 std::vector<value>().swap(temp);
             }
+            dtype = "object";
             std::vector<int>().swap(shape.two_dim);
             shape.two_dim.push_back((int)arr2d.size());
             shape.two_dim.push_back((int)arr2d[0].size());
@@ -1519,7 +1526,7 @@ class NdArray{
                 one = one.astype("float");
             }
 
-            value val;
+            value val, backup_val;
             if(one.dtype == "float"){
                 val.is_float = true;
                 val.dec = 0.0f;
@@ -1527,6 +1534,8 @@ class NdArray{
                 val.is_int = true;
                 val.num = 0;
             }
+
+            backup_val = val;
 
             value temp;
 
@@ -1538,9 +1547,11 @@ class NdArray{
                 for(j=0; j<two.shape.two_dim[1]; j++){
                     temp = val;
                     for(k=0; k<one.shape.two_dim[1]; k++){
-                        val += one.array2d[i][k]*two.array2d[k][j];
+                        backup_val = one.array2d[i][k];
+                        backup_val *= two.array2d[k][j];
+                        temp += backup_val;
                     }
-                    t_mat.push_back(val);
+                    t_mat.push_back(temp);
                 }
                 res.push_back(t_mat);
                 std::vector<value>().swap(t_mat);
@@ -1597,31 +1608,6 @@ class NdArray{
         int nunique_method(NdArray arr){
             return unique(arr).shape.one_dim;
         }
-
-    // added function to show
-
-        // void show(){
-        //     int i, j, length;
-        //     if(array1d.size() != 0){
-        //         length = array1d.size();
-        //         for(i=0; i<length; i++){
-        //             std::cout << array1d[i] << " ";
-        //         }
-        //         std::cout << "\n";
-        //         return;
-        //     }
-
-        //     if(array2d.size() != 0){
-        //         length = array2d.size();
-        //         for(i=0; i<length; i++){
-        //             for(j=0; j<array2d[i].size(); j++){
-        //                 std::cout << array2d[i][j] << " ";
-        //             }
-        //             std::cout << "\n";
-        //         }
-        //         return;
-        //     }
-        // }
 };
 
 // implementation of a cout << overload operato for NdArray portrayal of vectors
