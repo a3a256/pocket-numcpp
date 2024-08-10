@@ -1520,6 +1520,11 @@ class NdArray{
         // implement the error in shape broadcasting in future to throw an error
 
         NdArray mat_mul(NdArray one, NdArray two){
+            if(one.shape.two_dim[1] != two.shape.two_dim[0]){
+                std::string error_line = "Cannot broadcast and multiply matrices of shapes (" + std::to_string(one.shape.two_dim[0]) + ", " + std::to_string(one.shape.two_dim[1]) + ") and (";
+                error_line += std::to_string(two.shape.two_dim[0]) + ", " +std::to_string(two.shape.two_dim[1]) + ")\n";
+                throw std::invalid_argument(error_line);
+            }
             if(one.dtype == "float" && two.dtype == "int"){
                 two = two.astype("float");
             }else if(one.dtype == "int" && two.dtype == "float"){
