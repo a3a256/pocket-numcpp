@@ -7,8 +7,8 @@ int main(){
 
     // testing transpose functions
 
-    std::vector<std::vector<int>> one = {{2, 6}, {7, 1}};
-    std::vector<std::vector<int>> two = {{5, 6}, {9, 1}, {5, 5}};
+    std::vector<std::vector<float>> one = {{2.5f, 6.3f}, {7.4f, 1.9f}};
+    std::vector<std::vector<int>> two = {{5, 6}, {9, 1}};
 
     NdArray np;
 
