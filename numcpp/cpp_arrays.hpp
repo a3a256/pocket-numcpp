@@ -1567,6 +1567,12 @@ class NdArray{
             return vec;
         }
 
+        // implemented matrices and vectors addition in private class to be universal for different kinds of parameters input
+        // for overload functions
+        // implemented pretty much all edge cases for 1d vectors
+        // yet to implement addition of vectors to matrices
+        // yet to implement the addition of matrices
+
         NdArray mat_add(NdArray one, NdArray two){
             if(one.dtype == "float" && two.dtype == "int"){
                 two = two.astype("float");
