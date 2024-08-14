@@ -1569,8 +1569,8 @@ class NdArray{
 
         // implemented matrices and vectors addition in private class to be universal for different kinds of parameters input
         // for overload functions
-        // implemented pretty much all edge cases for 1d vectors
-        // yet to implement addition of vectors to matrices
+        // implemented pretty much all edge cases for 1d vectors - done
+        // implemented addition of 1d vectors to 2d matrices - done
         // yet to implement the addition of matrices
 
         NdArray mat_add(NdArray one, NdArray two){
