@@ -1571,7 +1571,7 @@ class NdArray{
         // for overload functions
         // implemented pretty much all edge cases for 1d vectors - done
         // implemented addition of 1d vectors to 2d matrices - done
-        // yet to implement the addition of matrices
+        // implemented the addition of matrices - done
 
         NdArray mat_add(NdArray one, NdArray two){
             if(one.dtype == "float" && two.dtype == "int"){
