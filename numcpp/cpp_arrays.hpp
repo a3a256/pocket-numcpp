@@ -1641,6 +1641,24 @@ class NdArray{
                     return one;
                 }
             }
+
+
+            if(one.shape.two_dim[1] != two.shape.two_dim[1] && one.shape.two_dim[0] != two.shape.two_dim[0]){
+                std::string error_line = "Cannot broadcast together shapes of size (";
+                error_line += std::to_string(one.shape.two_dim[0]) + ',' + std::to_string(one.shape.two_dim[1]) + ") and (";
+                error_line += std::to_string(two.shape.two_dim[0]) + ',' + std::to_string(two.shape.two_dim[1]) + ")\n";
+
+                throw std::invalid_argument(error_line);
+            }
+
+            int i, j;
+            for(i=0; i<one.shape.two_dim[0]; i++){
+                for(j=0; j<one.shape.two_dim[1]; j++){
+                    one.array2d[i][j] += two.array2d[i][j];
+                }
+            }
+
+            return one;
         };
 
         NdArray unique_method(NdArray arr){
