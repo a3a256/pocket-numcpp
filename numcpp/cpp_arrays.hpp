@@ -1895,6 +1895,16 @@ class NdArray{
                         throw std::invalid_argument(error_line);
                     }
 
+                    if(one.shape.one_dim == 1){
+                        for(i=0; i<two.shape.two_dim[0]; i++){
+                            for(j=0; j<two.shape.two_dim[1]; j++){
+                                two.array2d[i][j] -= one.array1d[0];
+                            }
+                        }
+
+                        return two;
+                    }
+
                     for(i=0; i<two.shape.two_dim[0]; i++){
                         for(j=0; j<two.shape.two_dim[1]; j++){
                             two.array2d[i][j] -= one.array1d[j];
@@ -1908,6 +1918,16 @@ class NdArray{
                         error_line += std::to_string(two.shape.two_dim[0]) + ',' + std::to_string(two.shape.two_dim[1]) + ") and (";
                         error_line += std::to_string(one.shape.one_dim) + ",)\n";
                         throw std::invalid_argument(error_line);
+                    }
+
+                    if(two.shape.one_dim == 1){
+                        for(i=0; i<one.shape.two_dim[0]; i++){
+                            for(j=0; j<one.shape.two_dim[1]; j++){
+                                one.array2d[i][j] -= two.array1d[0];
+                            }
+                        }
+
+                        return one;
                     }
 
                     for(i=0; i<one.shape.two_dim[0]; i++){
