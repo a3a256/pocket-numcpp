@@ -1672,6 +1672,164 @@ class NdArray{
         }
 
 
+        // methods for pointwise elements subtraction
+        // implemented overloading methods for practically every case of inputs as parameters
+        // 1d and 2d vector containers vs NdArray types - done
+        // 1d vs 1d vectors with various (int, float) data types stored in them - done
+        // 1d vs 2d and vice versa vector container with various data types stored - done
+        // 2d vs 2d vectors with various data types - done
+
+        
+        // basic case for NdArray vectors
+        NdArray subtract(NdArray one, NdArray two){
+            return mat_subtract(one, two);
+        }
+
+        // cases for NdArrays vs 1d and 2d vector containers
+
+        NdArray subtract(NdArray one, std::vector<float> two){
+            NdArray vec(two);
+            return mat_subtract(one, vec);
+        }
+
+        NdArray subtract(NdArray one, std::vector<int> two){
+            NdArray vec(two);
+            return mat_subtract(one, vec);
+        }
+
+        NdArray subtract(NdArray one, std::vector<std::vector<float>> two){
+            NdArray vec(two);
+            return mat_subtract(one, vec);
+        }
+
+        NdArray subtract(NdArray one, std::vector<std::vector<int>> two){
+            NdArray vec(two);
+            return mat_subtract(one, vec);
+        }
+
+        NdArray subtract(std::vector<float> one, NdArray two){
+            NdArray vec(one);
+            return mat_subtract(vec, two);
+        }
+
+        NdArray subtract(std::vector<int> one, NdArray two){
+            NdArray vec(one);
+            return mat_subtract(vec, two);
+        }
+
+        NdArray subtract(std::vector<std::vector<float>> one, NdArray two){
+            NdArray vec(one);
+            return mat_subtract(vec, two);
+        }
+
+        NdArray subtract(std::vector<std::vector<int>> one, NdArray two){
+            NdArray vec(one);
+            return mat_subtract(vec, two);
+        }
+
+        // 1d vs 1d vectors
+
+        NdArray subtract(std::vector<int> one, std::vector<int> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<int> one, std::vector<float> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<float> one, std::vector<int> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<float> one, std::vector<float> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+        
+        // 2d vs 1d vector containers interaction cases
+
+        NdArray subtract(std::vector<int> one, std::vector<std::vector<int>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<int> one, std::vector<std::vector<float>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<float> one, std::vector<std::vector<int>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<float> one, std::vector<std::vector<float>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<std::vector<int>> one, std::vector<int> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<std::vector<float>> one, std::vector<int> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<std::vector<int>> one, std::vector<float> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<std::vector<float>> one, std::vector<float> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        // 2d vs 2d vectors containers interactions
+
+        NdArray subtract(std::vector<std::vector<int>> one, std::vector<std::vector<int>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<std::vector<int>> one, std::vector<std::vector<float>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<std::vector<float>> one, std::vector<std::vector<int>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+        NdArray subtract(std::vector<std::vector<float>> one, std::vector<std::vector<float>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return mat_subtract(vec1, vec2);
+        }
+
+
     private:
 
         // implemented basic matrix multiplication between two NdArray 2-d matrices
