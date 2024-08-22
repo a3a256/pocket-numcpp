@@ -2117,6 +2117,122 @@ class NdArray{
             return one;
         };
 
+
+
+        // implemented matrices and vectors pointwise multiplication in private class to be universal for different kinds of parameters input
+        // for overload functions
+        // implemented pretty much all edge cases for 1d vectors - done
+        // implemented addition of 1d vectors to 2d matrices - done
+        // implemented the addition of matrices - done
+
+        NdArray pointwise_multiplication(NdArray one, NdArray two){
+            if(one.dtype == "float" && two.dtype == "int"){
+                two = two.astype("float");
+            }
+            if(one.dtype == "int" && two.dtype == "float"){
+                one = one.astype("float");
+            }
+            if(one.shape.two_dim.size() == 0 && two.shape.two_dim.size() == 0){
+                if(one.shape.one_dim == 1 || two.shape.one_dim == 1){
+                    value val_to_add;
+                    val_to_add = (one.shape.one_dim == 1)?(one.array1d[0]):(two.array1d[0]);
+                    std::vector<value> res;
+                    res = (one.shape.one_dim == 1)?(two.array1d):(one.array1d);
+                    for(int i=0; i<res.size(); i++){
+                        res[i] *= val_to_add;
+                    }
+
+                    NdArray vec(res);
+                    return vec;
+                }
+
+                if(one.shape.one_dim != two.shape.one_dim){
+                    std::string error_line = "Cannot broadcats together shapes of size (";
+                    error_line += std::to_string(one.shape.one_dim) + ",) and (" + std::to_string(two.shape.one_dim) + ",)\n";
+                    throw std::invalid_argument(error_line);
+                }
+
+                for(int i = 0; i<one.shape.one_dim; i++){
+                    one.array1d[i] *= two.array1d[i];
+                }
+
+                return one;
+            }
+
+            if(one.shape.two_dim.size() == 0 || two.shape.two_dim.size() == 0){
+                std::string error_line = "Cannot broadcast together shapes of size (";
+                int i, j;
+                if(one.shape.two_dim.size() == 0){
+                    if(one.shape.one_dim != two.shape.two_dim[1]){
+                        error_line += std::to_string(one.shape.one_dim) + ",) and (";
+                        error_line += std::to_string(two.shape.two_dim[0]) + ',' + std::to_string(two.shape.two_dim[1]) + ")\n";
+                        throw std::invalid_argument(error_line);
+                    }
+
+                    if(one.shape.one_dim == 1){
+                        for(i=0; i<two.shape.two_dim[0]; i++){
+                            for(j=0; j<two.shape.two_dim[1]; j++){
+                                two.array2d[i][j] *= one.array1d[0];
+                            }
+                        }
+
+                        return two;
+                    }
+
+                    for(i=0; i<two.shape.two_dim[0]; i++){
+                        for(j=0; j<two.shape.two_dim[1]; j++){
+                            two.array2d[i][j] *= one.array1d[j];
+                        }
+                    }
+
+                    return two;
+                }
+                if(two.shape.two_dim.size() == 0){
+                    if(one.shape.two_dim[1] != two.shape.one_dim){
+                        error_line += std::to_string(two.shape.two_dim[0]) + ',' + std::to_string(two.shape.two_dim[1]) + ") and (";
+                        error_line += std::to_string(one.shape.one_dim) + ",)\n";
+                        throw std::invalid_argument(error_line);
+                    }
+
+                    if(two.shape.one_dim == 1){
+                        for(i=0; i<one.shape.two_dim[0]; i++){
+                            for(j=0; j<one.shape.two_dim[1]; j++){
+                                one.array2d[i][j] *= two.array1d[0];
+                            }
+                        }
+
+                        return one;
+                    }
+
+                    for(i=0; i<one.shape.two_dim[0]; i++){
+                        for(j=0; j<one.shape.two_dim[1]; j++){
+                            one.array2d[i][j] *= two.array1d[j];
+                        }
+                    }
+
+                    return one;
+                }
+            }
+
+
+            if(one.shape.two_dim[1] != two.shape.two_dim[1] && one.shape.two_dim[0] != two.shape.two_dim[0]){
+                std::string error_line = "Cannot broadcast together shapes of size (";
+                error_line += std::to_string(one.shape.two_dim[0]) + ',' + std::to_string(one.shape.two_dim[1]) + ") and (";
+                error_line += std::to_string(two.shape.two_dim[0]) + ',' + std::to_string(two.shape.two_dim[1]) + ")\n";
+
+                throw std::invalid_argument(error_line);
+            }
+
+            int i, j;
+            for(i=0; i<one.shape.two_dim[0]; i++){
+                for(j=0; j<one.shape.two_dim[1]; j++){
+                    one.array2d[i][j] *= two.array2d[i][j];
+                }
+            }
+
+            return one;
+        };
+
         NdArray unique_method(NdArray arr){
             std::set<value> stk;
             int i, j;
