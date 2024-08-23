@@ -1671,6 +1671,65 @@ class NdArray{
             return mat_add(vec1, vec2);
         }
 
+        NdArray add(NdArray one, int two){
+            std::vector<int> v;
+            v.push_back(two);
+            NdArray vec(v);
+            return mat_add(one, vec);
+        }
+
+        NdArray add(int one, NdArray two){
+            std::vector<int> v;
+            v.push_back(one);
+            NdArray vec(v);
+            return mat_add(vec, two);
+        }
+
+        NdArray add(NdArray one, float two){
+            std::vector<float> v;
+            v.push_back(two);
+            NdArray vec(v);
+            return mat_add(one, vec);
+        }
+
+        NdArray add(float one, NdArray two){
+            std::vector<float> v;
+            v.push_back(one);
+            NdArray vec(v);
+            return mat_add(vec, two);
+        }
+
+        NdArray add(std::vector<int> one, int two){
+            std::vector<int> v;
+            v.push_back(two);
+            NdArray vec1(one);
+            NdArray vec2(v);
+            return mat_add(vec1, vec2);
+        }
+
+        NdArray add(int one, std::vector<int> two){
+            std::vector<int> v;
+            v.push_back(one);
+            NdArray vec1(v);
+            NdArray vec2(two);
+            return mat_add(vec1, vec2);
+        }
+
+        NdArray add(std::vector<int> one, float two){
+            std::vector<float> v;
+            v.push_back(two);
+            NdArray vec(v);
+            
+            return mat_add(one, vec);
+        }
+
+        NdArray add(float one, NdArray two){
+            std::vector<float> v;
+            v.push_back(one);
+            NdArray vec(v);
+            return mat_add(vec, two);
+        }
+
 
         // methods for pointwise elements subtraction
         // implemented overloading methods for practically every case of inputs as parameters
