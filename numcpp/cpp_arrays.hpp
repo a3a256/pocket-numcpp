@@ -1671,65 +1671,6 @@ class NdArray{
             return mat_add(vec1, vec2);
         }
 
-        NdArray add(NdArray one, int two){
-            std::vector<int> v;
-            v.push_back(two);
-            NdArray vec(v);
-            return mat_add(one, vec);
-        }
-
-        NdArray add(int one, NdArray two){
-            std::vector<int> v;
-            v.push_back(one);
-            NdArray vec(v);
-            return mat_add(vec, two);
-        }
-
-        NdArray add(NdArray one, float two){
-            std::vector<float> v;
-            v.push_back(two);
-            NdArray vec(v);
-            return mat_add(one, vec);
-        }
-
-        NdArray add(float one, NdArray two){
-            std::vector<float> v;
-            v.push_back(one);
-            NdArray vec(v);
-            return mat_add(vec, two);
-        }
-
-        NdArray add(std::vector<int> one, int two){
-            std::vector<int> v;
-            v.push_back(two);
-            NdArray vec1(one);
-            NdArray vec2(v);
-            return mat_add(vec1, vec2);
-        }
-
-        NdArray add(int one, std::vector<int> two){
-            std::vector<int> v;
-            v.push_back(one);
-            NdArray vec1(v);
-            NdArray vec2(two);
-            return mat_add(vec1, vec2);
-        }
-
-        NdArray add(std::vector<int> one, float two){
-            std::vector<float> v;
-            v.push_back(two);
-            NdArray vec(v);
-            
-            return mat_add(one, vec);
-        }
-
-        NdArray add(float one, NdArray two){
-            std::vector<float> v;
-            v.push_back(one);
-            NdArray vec(v);
-            return mat_add(vec, two);
-        }
-
 
         // methods for pointwise elements subtraction
         // implemented overloading methods for practically every case of inputs as parameters
@@ -1886,6 +1827,165 @@ class NdArray{
             NdArray vec1(one);
             NdArray vec2(two);
             return mat_subtract(vec1, vec2);
+        }
+
+
+
+        // methods for pointwise elements multiplication
+        // implemented overloading methods for practically every case of inputs as parameters
+        // 1d and 2d vector containers vs NdArray types - done
+        // 1d vs 1d vectors with various (int, float) data types stored in them - done
+        // 1d vs 2d and vice versa vector container with various data types stored - done
+        // 2d vs 2d vectors with various data types - done
+
+        
+        // basic case for NdArray vectors
+        NdArray multiply(NdArray one, NdArray two){
+            return pointwise_multiplication(one, two);
+        }
+
+        // cases for NdArrays vs 1d and 2d vector containers
+
+        NdArray multiply(NdArray one, std::vector<float> two){
+            NdArray vec(two);
+            return pointwise_multiplication(one, vec);
+        }
+
+        NdArray multiply(NdArray one, std::vector<int> two){
+            NdArray vec(two);
+            return pointwise_multiplication(one, vec);
+        }
+
+        NdArray multiply(NdArray one, std::vector<std::vector<float>> two){
+            NdArray vec(two);
+            return pointwise_multiplication(one, vec);
+        }
+
+        NdArray multiply(NdArray one, std::vector<std::vector<int>> two){
+            NdArray vec(two);
+            return pointwise_multiplication(one, vec);
+        }
+
+        NdArray multiply(std::vector<float> one, NdArray two){
+            NdArray vec(one);
+            return pointwise_multiplication(vec, two);
+        }
+
+        NdArray multiply(std::vector<int> one, NdArray two){
+            NdArray vec(one);
+            return pointwise_multiplication(vec, two);
+        }
+
+        NdArray multiply(std::vector<std::vector<float>> one, NdArray two){
+            NdArray vec(one);
+            return pointwise_multiplication(vec, two);
+        }
+
+        NdArray multiply(std::vector<std::vector<int>> one, NdArray two){
+            NdArray vec(one);
+            return pointwise_multiplication(vec, two);
+        }
+
+        // 1d vs 1d vectors
+
+        NdArray multiply(std::vector<int> one, std::vector<int> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<int> one, std::vector<float> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<float> one, std::vector<int> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<float> one, std::vector<float> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+        
+        // 2d vs 1d vector containers interaction cases
+
+        NdArray multiply(std::vector<int> one, std::vector<std::vector<int>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<int> one, std::vector<std::vector<float>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<float> one, std::vector<std::vector<int>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<float> one, std::vector<std::vector<float>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<std::vector<int>> one, std::vector<int> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<std::vector<float>> one, std::vector<int> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<std::vector<int>> one, std::vector<float> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<std::vector<float>> one, std::vector<float> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        // 2d vs 2d vectors containers interactions
+
+        NdArray multiply(std::vector<std::vector<int>> one, std::vector<std::vector<int>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<std::vector<int>> one, std::vector<std::vector<float>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<std::vector<float>> one, std::vector<std::vector<int>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
+        }
+
+        NdArray multiply(std::vector<std::vector<float>> one, std::vector<std::vector<float>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_multiplication(vec1, vec2);
         }
 
 
