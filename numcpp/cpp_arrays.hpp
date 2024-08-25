@@ -1989,6 +1989,166 @@ class NdArray{
         }
 
 
+
+
+        // methods for pointwise elements division
+        // implemented overloading methods for practically every case of inputs as parameters
+        // 1d and 2d vector containers vs NdArray types - done
+        // 1d vs 1d vectors with various (int, float) data types stored in them - done
+        // 1d vs 2d and vice versa vector container with various data types stored - done
+        // 2d vs 2d vectors with various data types - done
+
+        
+        // basic case for NdArray vectors
+        NdArray divide(NdArray one, NdArray two){
+            return pointwise_division(one, two);
+        }
+
+        // cases for NdArrays vs 1d and 2d vector containers
+
+        NdArray divide(NdArray one, std::vector<float> two){
+            NdArray vec(two);
+            return pointwise_division(one, vec);
+        }
+
+        NdArray divide(NdArray one, std::vector<int> two){
+            NdArray vec(two);
+            return pointwise_division(one, vec);
+        }
+
+        NdArray divide(NdArray one, std::vector<std::vector<float>> two){
+            NdArray vec(two);
+            return pointwise_division(one, vec);
+        }
+
+        NdArray divide(NdArray one, std::vector<std::vector<int>> two){
+            NdArray vec(two);
+            return pointwise_division(one, vec);
+        }
+
+        NdArray divide(std::vector<float> one, NdArray two){
+            NdArray vec(one);
+            return pointwise_division(vec, two);
+        }
+
+        NdArray divide(std::vector<int> one, NdArray two){
+            NdArray vec(one);
+            return pointwise_division(vec, two);
+        }
+
+        NdArray divide(std::vector<std::vector<float>> one, NdArray two){
+            NdArray vec(one);
+            return pointwise_division(vec, two);
+        }
+
+        NdArray divide(std::vector<std::vector<int>> one, NdArray two){
+            NdArray vec(one);
+            return pointwise_division(vec, two);
+        }
+
+        // 1d vs 1d vectors
+
+        NdArray divide(std::vector<int> one, std::vector<int> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<int> one, std::vector<float> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<float> one, std::vector<int> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<float> one, std::vector<float> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+        
+        // 2d vs 1d vector containers interaction cases
+
+        NdArray divide(std::vector<int> one, std::vector<std::vector<int>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<int> one, std::vector<std::vector<float>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<float> one, std::vector<std::vector<int>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<float> one, std::vector<std::vector<float>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<std::vector<int>> one, std::vector<int> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<std::vector<float>> one, std::vector<int> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<std::vector<int>> one, std::vector<float> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<std::vector<float>> one, std::vector<float> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        // 2d vs 2d vectors containers interactions
+
+        NdArray divide(std::vector<std::vector<int>> one, std::vector<std::vector<int>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<std::vector<int>> one, std::vector<std::vector<float>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<std::vector<float>> one, std::vector<std::vector<int>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+        NdArray divide(std::vector<std::vector<float>> one, std::vector<std::vector<float>> two){
+            NdArray vec1(one);
+            NdArray vec2(two);
+            return pointwise_division(vec1, vec2);
+        }
+
+
     private:
 
         // implemented basic matrix multiplication between two NdArray 2-d matrices
