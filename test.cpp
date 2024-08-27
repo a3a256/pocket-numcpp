@@ -5,14 +5,29 @@
 
 int main(){
 
-    // testing transpose functions
+    // testing NdArray cases
 
-    std::vector<std::vector<float>> one = {{2.5f, 6.3f}, {7.4f, 1.9f}};
-    std::vector<std::vector<int>> two = {{5, 6}, {9, 1}};
+    std::vector<std::vector<int>> a = {{1, 2}, {3, 4}};
+    std::vector<std::vector<int>> b = {{1, 2}, {3, 4}};
+
+    NdArray one(a);
+    NdArray two(b);
 
     NdArray np;
 
-    np = np.dot(one, two);
+    np = np.add(one, two);
+
+    std::cout << np << '\n';
+
+    np = np.subtract(one, two);
+
+    std::cout << np << '\n';
+
+    np = np.multiply(one, two);
+
+    std::cout << np << '\n';
+
+    np = np.divide(one, two);
 
     std::cout << np << '\n';
 
