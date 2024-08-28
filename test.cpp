@@ -8,7 +8,7 @@ int main(){
     // testing NdArray cases
 
     std::vector<std::vector<int>> a = {{1, 2}, {3, 4}};
-    std::vector<float> b = {1.1f, 2.1f, 3.5f};
+    std::vector<float> b = {1.1f, 2.1f};
 
     NdArray one(a);
     NdArray two(b);
