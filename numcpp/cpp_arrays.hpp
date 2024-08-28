@@ -2275,8 +2275,8 @@ class NdArray{
                 }
                 if(two.shape.two_dim.size() == 0){
                     if(one.shape.two_dim[1] != two.shape.one_dim){
-                        error_line += std::to_string(two.shape.two_dim[0]) + ',' + std::to_string(two.shape.two_dim[1]) + ") and (";
-                        error_line += std::to_string(one.shape.one_dim) + ",)\n";
+                        error_line += std::to_string(one.shape.two_dim[0]) + ',' + std::to_string(one.shape.two_dim[1]) + ") and (";
+                        error_line += std::to_string(two.shape.one_dim) + ",)\n";
                         throw std::invalid_argument(error_line);
                     }
 
@@ -2392,8 +2392,8 @@ class NdArray{
                 }
                 if(two.shape.two_dim.size() == 0){
                     if(one.shape.two_dim[1] != two.shape.one_dim){
-                        error_line += std::to_string(two.shape.two_dim[0]) + ',' + std::to_string(two.shape.two_dim[1]) + ") and (";
-                        error_line += std::to_string(one.shape.one_dim) + ",)\n";
+                        error_line += std::to_string(one.shape.two_dim[0]) + ',' + std::to_string(one.shape.two_dim[1]) + ") and (";
+                        error_line += std::to_string(two.shape.one_dim) + ",)\n";
                         throw std::invalid_argument(error_line);
                     }
 
@@ -2508,8 +2508,8 @@ class NdArray{
                 }
                 if(two.shape.two_dim.size() == 0){
                     if(one.shape.two_dim[1] != two.shape.one_dim){
-                        error_line += std::to_string(two.shape.two_dim[0]) + ',' + std::to_string(two.shape.two_dim[1]) + ") and (";
-                        error_line += std::to_string(one.shape.one_dim) + ",)\n";
+                        error_line += std::to_string(one.shape.two_dim[0]) + ',' + std::to_string(one.shape.two_dim[1]) + ") and (";
+                        error_line += std::to_string(two.shape.one_dim) + ",)\n";
                         throw std::invalid_argument(error_line);
                     }
 
@@ -2624,8 +2624,8 @@ class NdArray{
                 }
                 if(two.shape.two_dim.size() == 0){
                     if(one.shape.two_dim[1] != two.shape.one_dim){
-                        error_line += std::to_string(two.shape.two_dim[0]) + ',' + std::to_string(two.shape.two_dim[1]) + ") and (";
-                        error_line += std::to_string(one.shape.one_dim) + ",)\n";
+                        error_line += std::to_string(one.shape.two_dim[0]) + ',' + std::to_string(one.shape.two_dim[1]) + ") and (";
+                        error_line += std::to_string(two.shape.one_dim) + ",)\n";
                         throw std::invalid_argument(error_line);
                     }
 
