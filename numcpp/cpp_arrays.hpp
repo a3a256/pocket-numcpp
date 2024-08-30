@@ -2714,6 +2714,34 @@ class NdArray{
         int nunique_method(NdArray arr){
             return unique(arr).shape.one_dim;
         }
+
+        value determinant(NdArray arr){
+            if(arr.array1d.size() != 0){
+                std::string error_line = "Determinant could be calculated for a square matrix (n, n), but got (" + std::to_string(arr.shape.one_dim) + ", )\n";
+                throw std::invalid_argument(error_line);
+            }
+
+            if(arr.shape.two_dim.size() != 0){
+                if(arr.shape.two_dim[0] != arr.shape.two_dim[1]){
+                    std::string error_line = "Determinant could be calculated for a square matrix (n, n), but got (" + std::to_string(arr.shape.two_dim[0]) + ',' + std::to_string(arr.shape.two_dim[1]) + ")\n";
+                    throw std::invalid_argument(error_line);
+                }
+            }
+
+
+            if(arr.shape.two_dim[0] == 1){
+                return arr.array2d[0][0];
+            }
+
+            if(arr.shape.two_dim[0] == 2){
+                value t;
+                t = arr.array2d[0][0]*arr.array2d[1][1] - arr.array2d[0][1]*arr.array2d[1][0];
+
+                return t;
+            }
+
+            int i, j, k, l;
+        }
 };
 
 // implementation of a cout << overload operato for NdArray portrayal of vectors
