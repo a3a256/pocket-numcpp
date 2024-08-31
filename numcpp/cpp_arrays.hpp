@@ -2740,7 +2740,34 @@ class NdArray{
                 return t;
             }
 
-            int i, j, k, l;
+            int i, j, k;
+            value v;
+
+            if(arr.dtype == "float"){
+                v.is_float = true;
+                v.dec = 0.0f;
+            }else if(arr.dtype == "int"){
+                v.is_int = true;
+                v.num = 0;
+            }
+            for(i=0; i<arr.array2d.size(); i++){
+                std::vector<std::vector<value>> mat;
+                for(j=1; j<arr.array2d.size(); j++){
+                    std::vector<value> temp;
+                    for(k=0; k<arr.array2d.size(); k++){
+                        if(k != i){
+                            temp.push_back(arr.array2d[j][k]);
+                        }
+                    }
+                    mat.push_back(temp);
+                    std::vector<value>().swap(temp);
+                }
+                NdArray vec(mat);
+                v += arr.array2d[0][i]*(float)std::pow(-1.0f, 1+i+1)*determinant(vec);
+                std::vector<std::vector<value>>().swap(mat);
+            }
+
+            return v;
         }
 };
 
