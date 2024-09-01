@@ -2769,6 +2769,43 @@ class NdArray{
 
             return v;
         }
+
+
+        // implementing minor matrices with adjugates
+        // for nxn matrices where n>2
+
+        NdArray minors(NdArray arr){
+            return;
+        }
+
+        // implementation of inverse matrix using cofactor method
+        // yet to implement special case for 2x2 matrices
+        NdArray inverse_method(NdArray arr){
+            if(arr.array1d.size() != 0){
+                std::string error_line = "Determinant could be calculated for a square matrix (n, n), but got (" + std::to_string(arr.shape.one_dim) + ", )\n";
+                throw std::invalid_argument(error_line);
+            }
+
+            if(arr.shape.two_dim.size() != 0){
+                if(arr.shape.two_dim[0] != arr.shape.two_dim[1]){
+                    std::string error_line = "Determinant could be calculated for a square matrix (n, n), but got (" + std::to_string(arr.shape.two_dim[0]) + ',' + std::to_string(arr.shape.two_dim[1]) + ")\n";
+                    throw std::invalid_argument(error_line);
+                }
+            }
+
+            if(arr.shape.two_dim[0] == 2){
+                value spec_2x2 = determinant(arr);
+                value temp;
+                temp = arr.array2d[0][0];
+                arr.array2d[0][0] = arr.array2d[1][1]/spec_2x2;
+                arr.array2d[1][1] = temp/spec_2x2;
+                temp = arr.array2d[0][1];
+                arr.array2d[0][1] = (arr.array2d[1][0]*(-1))/spec_2x2;
+                arr.array2d[1][0] = (temp*(-1))/spec_2x2;
+
+                return arr;
+            }
+        }
 };
 
 // implementation of a cout << overload operato for NdArray portrayal of vectors
