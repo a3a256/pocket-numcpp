@@ -2775,8 +2775,38 @@ class NdArray{
         // implementing minor matrices with adjugates
         // for nxn matrices where n>2
 
+        // pretty much implemented minority matrices calculation
+
         NdArray minors(NdArray arr){
-            return;
+            int i, j, k, l;
+            std::vector<std::vector<value>> res;
+            std::vector<value> res_temp;
+            for(i=0; i<arr.array2d.size(); i++){
+                for(j=0; j<arr.array2d[i].size(); j++){
+                    std::vector<std::vector<value>> mat;
+                    std::vector<value> temp;
+                    for(k=0; k<arr.array2d.size(); i++){
+                        for(l=0; l<arr.array2d[k].size(); k++){
+                            if(k != i && l != j){
+                                temp.push_back(arr.array2d[k][l]);
+                            }
+                        }
+                        mat.push_back(temp);
+                        std::vector<value>().swap(temp);
+                    }
+                    value t;
+                    NdArray _vec(mat);
+                    t = determinant(_vec);
+                    res_temp.push_back(t);
+                    std::vector<std::vector<value>>().swap(mat);
+                }
+                res.push_back(res_temp);
+                std::vector<value>().swap(res_temp);
+            }
+
+            NdArray vec(res);
+
+            return res;
         }
 
         // implementation of inverse matrix using cofactor method
