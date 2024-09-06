@@ -2836,6 +2836,27 @@ class NdArray{
 
                 return arr;
             }
+
+            NdArray minors_matrix;
+            minors_matrix = minors(arr);
+
+            int i, j;
+
+            for(i=0; i<arr.shape.two_dim[0]; i++){
+                for(j=0; j<arr.shape.two_dim[1]; j++){
+                    arr.array2d[i][j] *= (int)std::pow(-1.0f, (i+1)+(j+1));
+                }
+            }
+
+            value val_determinant = determinant(arr);
+
+            for(i=0; i<arr.shape.two_dim[0]; i++){
+                for(j=0; j<arr.shape.two_dim[1]; j++){
+                    arr.array2d[i][j] /= val_determinant;
+                }
+            }
+
+            return arr;
         }
 };
 
