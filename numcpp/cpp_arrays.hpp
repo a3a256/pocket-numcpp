@@ -125,17 +125,23 @@ struct value{
 
     // up to make it up for various scenarios like int + str, float + str, float + int, int + int, float + float, etc.
     // change the conversion in terms of int to float if required !!!!! urgent for future operations
+    // changing overload operators to handle int/float interaction
+    // add condition to handle str/str addition but prevents any numeric/str operations (!!!!!)
     value operator+=(const value v){
         if(is_obj || v.is_obj){
             throw std::invalid_argument("Does not support str item assignment");
         }
 
-        if(is_float && v.is_float){
+        if(is_float && v.is_int){
+            dec += (float)v.num;
+        }else if(is_int && v.is_float){
+            is_int = false;
+            is_float = true;
+            dec = (float)num + v.dec;
+        }else if(is_float && v.is_float){
             dec += v.dec;
         }else if(is_int && v.is_int){
             num += v.num;
-        }else{
-            throw std::invalid_argument("Does not support add function for different data types");
         }
 
         return *this;
@@ -148,8 +154,8 @@ struct value{
 
         if(is_int){
             num += v;
-        }else{
-            throw std::invalid_argument("Does not support add function for different data types");
+        }else if(is_float){
+            dec += (float)v;
         }
         return *this;
     }
@@ -161,8 +167,10 @@ struct value{
 
         if(is_float){
             dec += v;
-        }else{
-            throw std::invalid_argument("Does not support add function for different data types");
+        }else if(is_int){
+            is_int  = false;
+            is_float = true;
+            dec = (float)num + v;
         }
 
         return *this;
@@ -186,12 +194,16 @@ struct value{
             throw std::invalid_argument("Does not support str item assignment");
         }
 
-        if(is_float && v.is_float){
+        if(is_float && v.is_int){
+            dec += (float)v.num;
+        }else if(is_int && v.is_float){
+            is_int = false;
+            is_float = true;
+            dec = (float)num + v.dec;
+        }else if(is_float && v.is_float){
             dec += v.dec;
         }else if(is_int && v.is_int){
             num += v.num;
-        }else{
-            throw std::invalid_argument("Does not support add function for different data types");
         }
 
         return *this;
@@ -204,8 +216,8 @@ struct value{
 
         if(is_int){
             num += v;
-        }else{
-            throw std::invalid_argument("Does not support add function for different data types");
+        }else if(is_float){
+            dec += (float)v;
         }
         return *this;
     }
@@ -217,8 +229,10 @@ struct value{
 
         if(is_float){
             dec += v;
-        }else{
-            throw std::invalid_argument("Does not support add function for different data types");
+        }else if(is_int){
+            is_int  = false;
+            is_float = true;
+            dec = (float)num + v;
         }
 
         return *this;
@@ -236,7 +250,7 @@ struct value{
         return *this;
     }
 
-
+    // implement int/float conversion for corresponding interractions
     // implementing overloading operators such as - and -=
     value operator-=(const value v){
         if(is_obj || v.is_obj){
@@ -349,6 +363,8 @@ struct value{
         return *this;
     }
 
+
+    // implement int/float conversion for corresponding interractions
     // implementing multiplication overload operators
     // implement the change of dtypes from int to float and from float to int(but most likely implement from int to float)
 
@@ -464,6 +480,7 @@ struct value{
     }
 
     // implementing division overload operators
+    // implement int/float conversion for corresponding interractions
 
     value operator/=(const value v){
         if(is_obj || v.is_obj){
