@@ -405,9 +405,9 @@ struct value{
         }
 
         if(is_int){
-            num -= v;
+            num *= v;
         }else if(is_float){
-            dec -= (float)v;
+            dec *= (float)v;
         }
 
 
@@ -420,11 +420,11 @@ struct value{
         }
 
         if(is_float){
-            dec -= v;
+            dec *= v;
         }else if(is_int){
             is_int  = false;
             is_float = true;
-            dec = (float)num - v;
+            dec = (float)num * v;
         }
 
         return *this;
@@ -469,9 +469,9 @@ struct value{
         }
 
         if(is_int){
-            num -= v;
+            num *= v;
         }else if(is_float){
-            dec -= (float)v;
+            dec *= (float)v;
         }
 
 
@@ -484,11 +484,11 @@ struct value{
         }
 
         if(is_float){
-            dec -= v;
+            dec *= v;
         }else if(is_int){
             is_int  = false;
             is_float = true;
-            dec = (float)num - v;
+            dec = (float)num * v;
         }
 
         return *this;
@@ -514,12 +514,16 @@ struct value{
             throw std::invalid_argument("Does not support str item assignment");
         }
 
-        if(is_float && v.is_float){
+        if(is_float && v.is_int){
+            dec /= (float)v.num;
+        }else if(is_int && v.is_float){
+            is_int = false;
+            is_float = true;
+            dec = (float)num / v.dec;
+        }else if(is_float && v.is_float){
             dec /= v.dec;
         }else if(is_int && v.is_int){
             num /= v.num;
-        }else{
-            throw std::invalid_argument("Does not support add function for different data types");
         }
 
         return *this;
@@ -532,8 +536,8 @@ struct value{
 
         if(is_int){
             num /= v;
-        }else{
-            throw std::invalid_argument("Does not support add function for different data types");
+        }else if(is_float){
+            dec /= (float)v;
         }
         return *this;
     }
@@ -545,8 +549,10 @@ struct value{
 
         if(is_float){
             dec /= v;
-        }else{
-            throw std::invalid_argument("Does not support add function for different data types");
+        }else if(is_int){
+            is_int  = false;
+            is_float = true;
+            dec = (float)num / v;
         }
 
         return *this;
@@ -570,12 +576,16 @@ struct value{
             throw std::invalid_argument("Does not support str item assignment");
         }
 
-        if(is_float && v.is_float){
+        if(is_float && v.is_int){
+            dec /= (float)v.num;
+        }else if(is_int && v.is_float){
+            is_int = false;
+            is_float = true;
+            dec = (float)num / v.dec;
+        }else if(is_float && v.is_float){
             dec /= v.dec;
         }else if(is_int && v.is_int){
             num /= v.num;
-        }else{
-            throw std::invalid_argument("Does not support add function for different data types");
         }
 
         return *this;
@@ -588,8 +598,8 @@ struct value{
 
         if(is_int){
             num /= v;
-        }else{
-            throw std::invalid_argument("Does not support add function for different data types");
+        }else if(is_float){
+            dec /= (float)v;
         }
         return *this;
     }
@@ -601,8 +611,10 @@ struct value{
 
         if(is_float){
             dec /= v;
-        }else{
-            throw std::invalid_argument("Does not support add function for different data types");
+        }else if(is_int){
+            is_int  = false;
+            is_float = true;
+            dec = (float)num / v;
         }
 
         return *this;
