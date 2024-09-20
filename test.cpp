@@ -10,26 +10,35 @@ int main(){
     std::vector<int> a = {1, 2, 3, 4};
     std::vector<float> b = {1.1f, 2.1f, 3.5f, 4.9f};
 
-    // NdArray one(a);
-    // NdArray two(b);
+    value t;
 
-    NdArray np;
+    t = a[1];
 
-    np = np.add(a, b);
+    std::cout << t << '\n';
 
-    std::cout << np << '\n';
+    // tested +
+    
+    // t += b[0];
 
-    np = np.subtract(a, b);
+    // std::cout << t << '\n';
 
-    std::cout << np << '\n';
+    // tested -
+    // t -= b[0];
 
-    np = np.multiply(a, b);
+    // std::cout << t << '\n';
 
-    std::cout << np << '\n';
+    // tested *
 
-    np = np.divide(a, b);
+    // t *= b[1];
 
-    std::cout << np << '\n';
+    // std::cout << t << '\n';
+
+    // tested /
+
+    t /= b[1];
+
+    std::cout << t << '\n';
+    
 
     return 0;
 }
