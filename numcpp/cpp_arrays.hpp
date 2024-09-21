@@ -2205,6 +2205,10 @@ class NdArray{
             return pointwise_division(vec1, vec2);
         }
 
+        value det(NdArray arr){
+            return determinant(arr);
+        }
+
 
     private:
 
