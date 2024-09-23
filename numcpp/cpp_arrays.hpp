@@ -2205,8 +2205,31 @@ class NdArray{
             return pointwise_division(vec1, vec2);
         }
 
+        // defining the usage of determinan private method to public method for various data types
+        // overloading functions
+
         value det(NdArray arr){
             return determinant(arr);
+        }
+
+        value det(std::vector<std::vector<int>> arr){
+            NdArray vec(arr);
+            return determinant(vec);
+        }
+
+        value det(std::vector<std::vector<float>> arr){
+            NdArray vec(arr);
+            return determinant(vec);
+        }
+
+        value det(std::vector<int> arr){
+            NdArray vec(arr);
+            return determinant(vec);
+        }
+
+        value det(std::vector<float> arr){
+            NdArray vec(arr);
+            return determinant(vec);
         }
 
 
