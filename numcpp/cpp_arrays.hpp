@@ -688,6 +688,20 @@ class NdArray{
             std::vector<int> two_dim;
             // definition of a cout overload operator for shape struct
             friend std::ostream& operator<<(std::ostream &os, const dimensions& val);
+            int operator [](int index){
+                if(two_dim.size() == 0){
+                    if(index > 0){
+                        throw std::invalid_argument("Index out of range\n");
+                    }
+                    return two_dim[index];
+                }
+                
+                if(index>1){
+                    throw std::invalid_argument("Index out of range\n");
+                }
+
+                return two_dim[index];
+            }
         };
         // cout overload operator for NdArray class - definition
         friend std::ostream& operator<<(std::ostream& os, NdArray& arr);
