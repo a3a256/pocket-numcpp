@@ -683,6 +683,11 @@ class NdArray{
         std::string dtype = "";
         // Implemented struct shape for numcpp array
 
+
+        // URGENT - ADD NDIMS STRUCTURE TO ALL METHODS WHERE NECESSARY (!!!)
+
+        int ndims = -1;
+
         struct dimensions{
             int one_dim=-1;
             std::vector<int> two_dim;
@@ -705,6 +710,41 @@ class NdArray{
         };
         // cout overload operator for NdArray class - definition
         friend std::ostream& operator<<(std::ostream& os, NdArray& arr);
+
+        // yet to work on that - indexing operator, something like
+
+        // np = np.array([1, 2, 3, 4])
+
+        // np[3] = 4
+
+        // work to display different values
+
+        value operator [](int index){
+            if(index < 0){
+                throw std::invalid_argument("Index out of range\n");
+            }
+
+
+            if(ndims == 1){
+                if(index >= array1d.size()){
+                    throw std::invalid_argument("Index out of range\n");
+                }
+                return array1d[index];
+            }
+
+            if(ndims == 2){
+                int i;
+                if(index >= array2d.size()){
+                    throw std::invalid_argument("Index out of range\n");
+                }
+
+
+                for(i=0; i<array2d[index].size(); i++){
+                    std::cout << array2d[index][i] << ' ';
+                }
+                std::cout << '\n';
+            }
+        }
 
         // adding empty constructor as another edge case
 
