@@ -719,31 +719,24 @@ class NdArray{
 
         // work to display different values
 
-        value operator [](int index){
+        value operator [](int index) const {
             if(index < 0){
                 throw std::invalid_argument("Index out of range\n");
             }
+            if(index >= array1d.size()){
+                throw std::invalid_argument("Index out of range\n");
+            }
+            return array1d[index];
+        }
 
-
-            if(ndims == 1){
-                if(index >= array1d.size()){
-                    throw std::invalid_argument("Index out of range\n");
-                }
-                return array1d[index];
+        NdArray operator [](int index){
+            if(index < 0 || index >= array2d.size()){
+                throw std::invalid_argument("Index out of range\n");
             }
 
-            if(ndims == 2){
-                int i;
-                if(index >= array2d.size()){
-                    throw std::invalid_argument("Index out of range\n");
-                }
+            NdArray vec(array2d[index]);
 
-
-                for(i=0; i<array2d[index].size(); i++){
-                    std::cout << array2d[index][i] << ' ';
-                }
-                std::cout << '\n';
-            }
+            return vec;
         }
 
         // adding empty constructor as another edge case
