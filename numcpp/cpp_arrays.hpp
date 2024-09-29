@@ -739,6 +739,24 @@ class NdArray{
             return vec;
         }
 
+        value operator ()(int i, int j) const {
+            if(ndims == 1){
+                throw std::invalid_argument("too many indices for array: array is 1-dimensional, but 2 were indexed");
+            }
+
+            if(i >= array2d.size() || i < 0){
+                std::string error_line = "Index " + std::to_string(i) + " is out of bounds for axis 0 with size " + std::to_string((int)array2d.size()) + '\n';
+                throw std::invalid_argument(error_line);
+            }
+
+            if(j >= array2d[i].size() || j < 0){
+                std::string error_line = "Index " + std::to_string(j) + " is out of bounds for axis 1 with size " + std::to_string((int)array2d[i].size()) + '\n';
+                throw std::invalid_argument(error_line);
+            }
+
+            return array2d[i][j];
+        }
+
         // adding empty constructor as another edge case
 
         NdArray(){}
