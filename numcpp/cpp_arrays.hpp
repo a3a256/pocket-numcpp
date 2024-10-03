@@ -708,8 +708,6 @@ class NdArray{
                 return two_dim[index];
             }
         };
-        // cout overload operator for NdArray class - definition
-        friend std::ostream& operator<<(std::ostream& os, NdArray& arr);
 
         // yet to work on that - indexing operator, something like
 
@@ -756,6 +754,9 @@ class NdArray{
 
             return array2d[i][j];
         }
+
+        // cout overload operator for NdArray class - definition
+        friend std::ostream& operator<<(std::ostream& os, NdArray& arr);
 
         // adding empty constructor as another edge case
 

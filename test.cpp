@@ -23,9 +23,11 @@ int main(){
 
     NdArray ap(a);
 
-    std::cout << " Overloading operator\n";
+    std::cout << "Slicing operator\n";
 
-    std::cout << ap.shape[2] << '\n';
+    ap = ap[0];
+
+    std::cout << ap << '\n';
     
 
     return 0;
