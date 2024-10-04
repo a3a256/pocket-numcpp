@@ -709,13 +709,7 @@ class NdArray{
             }
         };
 
-        // yet to work on that - indexing operator, something like
-
-        // np = np.array([1, 2, 3, 4])
-
-        // np[3] = 4
-
-        // work to display different values
+        // indexing sicing operators
 
         value operator [](int index) const {
             if(index < 0){
@@ -781,6 +775,7 @@ class NdArray{
             shape.one_dim = array1d.size();
             dtype = "int";
             std::set<int>().swap(stk);
+            ndims = 1;
         }
 
         NdArray(std::set<float> stk){
@@ -793,6 +788,7 @@ class NdArray{
             }
             dtype = "float";
             shape.one_dim = array1d.size();
+            ndims = 1;
         }
 
         NdArray(std::set<value> stk){
@@ -802,6 +798,7 @@ class NdArray{
             }
             dtype = "object";
             shape.one_dim = array1d.size();
+            ndims = 1;
         }
 
 
@@ -818,6 +815,7 @@ class NdArray{
             dtype = "int";
             shape.one_dim = (int)arr1d.size();
             std::vector<int>().swap(shape.two_dim);
+            ndims = 1;
         }
 
         NdArray(std::vector<float> arr1d){
@@ -832,6 +830,7 @@ class NdArray{
             dtype = "float";
             shape.one_dim = (int)arr1d.size();
             std::vector<int>().swap(shape.two_dim);
+            ndims = 1;
         }
 
         NdArray(std::vector<std::string> arr1d){
@@ -846,12 +845,14 @@ class NdArray{
             dtype = "object";
             shape.one_dim = (int)arr1d.size();
             std::vector<int>().swap(shape.two_dim);
+            ndims = 1;
         }
 
         NdArray(std::vector<value> arr1d){
             array1d = arr1d;
             shape.one_dim = (int)arr1d.size();
             std::vector<int>().swap(shape.two_dim);
+            ndims = 1;
         }
 
         // Constructors overloading for 2d arrays and their shapes for different data types
@@ -873,6 +874,7 @@ class NdArray{
                 std::vector<value>().swap(temp);
             }
             dtype = "int";
+            ndims = 2;
             std::vector<int>().swap(shape.two_dim);
             shape.two_dim.push_back((int)arr2d.size());
             shape.two_dim.push_back((int)arr2d[0].size());
@@ -885,6 +887,7 @@ class NdArray{
             t.is_float = true;
             t.dec = 0.0f;
             std::vector<value> temp;
+            ndims = 2;
             for(i=0; i<arr2d.size(); i++){
                 for(j=0; j<arr2d[i].size(); j++){
                     t.is_float = true;
@@ -906,6 +909,7 @@ class NdArray{
             value t;
             t.is_obj = true;
             t.line = "0.0";
+            ndims = 2;
             std::vector<value> temp;
             for(i=0; i<arr2d.size(); i++){
                 for(j=0; j<arr2d[i].size(); j++){
@@ -924,6 +928,7 @@ class NdArray{
 
         NdArray(std::vector<std::vector<value>> arr2d){
             array2d = arr2d;
+            ndims = 2;
             std::vector<int>().swap(shape.two_dim);
             shape.two_dim.push_back((int)arr2d.size());
             shape.two_dim.push_back((int)arr2d[0].size());
@@ -932,7 +937,7 @@ class NdArray{
         dimensions shape;
 
         // plan to investigate whether you can or cannot add float or int to string values like usual in Python, whether it is possible
-        // or not in OG numpy or not
+        // or not in OG numpy or not (to do that soon)
 
         std::vector<std::vector<value>> operator+(std::vector<std::vector<value>> mat){
             int i, j;
