@@ -775,6 +775,7 @@ class NdArray{
             shape.one_dim = array1d.size();
             dtype = "int";
             std::set<int>().swap(stk);
+            shape.two_dim.push_back((int)array1d.size());
             ndims = 1;
         }
 
@@ -788,6 +789,7 @@ class NdArray{
             }
             dtype = "float";
             shape.one_dim = array1d.size();
+            shape.two_dim.push_back((int)array1d.size());
             ndims = 1;
         }
 
@@ -798,6 +800,7 @@ class NdArray{
             }
             dtype = "object";
             shape.one_dim = array1d.size();
+            shape.two_dim.push_back((int)array1d.size());
             ndims = 1;
         }
 
@@ -815,6 +818,7 @@ class NdArray{
             dtype = "int";
             shape.one_dim = (int)arr1d.size();
             std::vector<int>().swap(shape.two_dim);
+            shape.two_dim.push_back((int)arr1d.size());
             ndims = 1;
         }
 
@@ -830,6 +834,7 @@ class NdArray{
             dtype = "float";
             shape.one_dim = (int)arr1d.size();
             std::vector<int>().swap(shape.two_dim);
+            shape.two_dim.push_back((int)arr1d.size());
             ndims = 1;
         }
 
@@ -845,6 +850,7 @@ class NdArray{
             dtype = "object";
             shape.one_dim = (int)arr1d.size();
             std::vector<int>().swap(shape.two_dim);
+            shape.two_dim.push_back((int)arr1d.size());
             ndims = 1;
         }
 
@@ -852,6 +858,7 @@ class NdArray{
             array1d = arr1d;
             shape.one_dim = (int)arr1d.size();
             std::vector<int>().swap(shape.two_dim);
+            shape.two_dim.push_back((int)arr1d.size());
             ndims = 1;
         }
 
@@ -951,6 +958,17 @@ class NdArray{
         }
 
         std::vector<std::vector<value>> operator+(float val){
+            int i, j;
+            for(i=0; i<array2d.size(); i++){
+                for(j=0; j<array2d[i].size(); j++){
+                    array2d[i][j] += val;
+                }
+            }
+
+            return array2d;
+        }
+
+        std::vector<std::vector<value>> operator+(int val){
             int i, j;
             for(i=0; i<array2d.size(); i++){
                 for(j=0; j<array2d[i].size(); j++){
