@@ -979,6 +979,39 @@ class NdArray{
             return array2d;
         }
 
+        std::vector<std::vector<value>> operator+=(std::vector<std::vector<value>> mat){
+            int i, j;
+            for(i=0; i<mat.size(); i++){
+                for(j=0; j<mat[0].size(); j++){
+                    array2d[i][j] += mat[i][j];
+                }
+            }
+
+            return array2d;
+        }
+
+        std::vector<std::vector<value>> operator+=(float val){
+            int i, j;
+            for(i=0; i<array2d.size(); i++){
+                for(j=0; j<array2d[i].size(); j++){
+                    array2d[i][j] += val;
+                }
+            }
+
+            return array2d;
+        }
+
+        std::vector<std::vector<value>> operator+=(int val){
+            int i, j;
+            for(i=0; i<array2d.size(); i++){
+                for(j=0; j<array2d[i].size(); j++){
+                    array2d[i][j] += val;
+                }
+            }
+
+            return array2d;
+        }
+
         // implement flattening out the 2d array so far?
         // do we need non-changing implementation of 1d array?
         NdArray flatten(){
