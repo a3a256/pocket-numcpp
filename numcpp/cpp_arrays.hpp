@@ -947,7 +947,10 @@ class NdArray{
         // or not in OG numpy or not (to do that soon)
         // for both types implement for situations when NdArray dim = 1 as well
 
-        std::vector<std::vector<value>> operator+(std::vector<std::vector<value>> mat){
+        NdArray operator+(std::vector<std::vector<value>> mat){
+            if(ndims = 1){
+                throw std::invalid_argument("Cannot add 2d array to 1d array"); // investigate other error type messages
+            }
             int i, j;
             for(i=0; i<mat.size(); i++){
                 for(j=0; j<mat[0].size(); j++){
@@ -958,15 +961,21 @@ class NdArray{
             return array2d;
         }
 
-        std::vector<std::vector<value>> operator+(float val){
+        NdArray operator+(float val){
             int i, j;
+            if(ndims == 1){
+                for(i=0; i<shape[0]; i++){
+                    array1d[i] += val;
+                }
+                return *this;
+            }
             for(i=0; i<array2d.size(); i++){
                 for(j=0; j<array2d[i].size(); j++){
                     array2d[i][j] += val;
                 }
             }
 
-            return array2d;
+            return *this;
         }
 
         std::vector<std::vector<value>> operator+(int val){
