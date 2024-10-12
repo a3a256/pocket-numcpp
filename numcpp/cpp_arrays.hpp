@@ -4,37 +4,7 @@
 #include <stdexcept>
 #include <string>
 #include <set>
-
-// namespace narr{
-//     template<size_t dimcount, typename T> struct nd_arr{
-//         typedef std::vector<typename nd_arr<dimcount-1, T>::type> type;
-//     };
-
-//     template<typename T>
-//     struct nd_arr<0, T>{
-//         typedef T type;
-//     };
-
-//     template<typename T>
-//     nd_arr<1, T> shape(){
-//         return;
-//     }
-// };
-
-// template <size_t dim, typename T> class array{
-//     private:
-//         int d = static_cast<int>(dim);
-
-//     public:
-
-//         narr::nd_arr<1, int>shape(){
-//             return;
-//         }
-
-//         void dot(narr::nd_arr<size_t dimcount, typename T> two){
-//             return;
-//         }
-// };
+#include <variant>
 
 struct value{
     int num;
@@ -709,46 +679,6 @@ class NdArray{
             }
         };
 
-        // indexing sicing operators
-
-        value operator [](int index) const {
-            if(index < 0){
-                throw std::invalid_argument("Index out of range\n");
-            }
-            if(index >= array1d.size()){
-                throw std::invalid_argument("Index out of range\n");
-            }
-            return array1d[index];
-        }
-
-        NdArray operator [](int index){
-            if(index < 0 || index >= array2d.size()){
-                throw std::invalid_argument("Index out of range\n");
-            }
-
-            NdArray vec(array2d[index]);
-
-            return vec;
-        }
-
-        value operator ()(int i, int j) const {
-            if(ndims == 1){
-                throw std::invalid_argument("too many indices for array: array is 1-dimensional, but 2 were indexed");
-            }
-
-            if(i >= array2d.size() || i < 0){
-                std::string error_line = "Index " + std::to_string(i) + " is out of bounds for axis 0 with size " + std::to_string((int)array2d.size()) + '\n';
-                throw std::invalid_argument(error_line);
-            }
-
-            if(j >= array2d[i].size() || j < 0){
-                std::string error_line = "Index " + std::to_string(j) + " is out of bounds for axis 1 with size " + std::to_string((int)array2d[i].size()) + '\n';
-                throw std::invalid_argument(error_line);
-            }
-
-            return array2d[i][j];
-        }
-
         // cout overload operator for NdArray class - definition
         friend std::ostream& operator<<(std::ostream& os, NdArray& arr);
 
@@ -1143,6 +1073,71 @@ class NdArray{
 
 
 
+
+        value select_value(int row = -1, int col = -1){
+            if(col == -1){
+
+
+                if(ndims == 2){
+                    throw std::invalid_argument("Cannot select value in 2D Array if only row/column is defined\n");
+                }
+
+                if(!check_dims(row, (int)array1d.size())){
+                    throw std::invalid_argument("Index out of range for 1D NdArray\n");
+                }
+                return array1d[row];
+            }
+
+            if(ndims == 1){
+                throw std::invalid_argument("Both row and column were provided for 1D Array\n");
+            }
+
+            if(!(check_dims(row, shape[0]))){
+                if(!check_dims(col, shape[1])){
+                    throw std::invalid_argument("Both row and column indices are out of array range\n");
+                }
+
+                throw std::invalid_argument("While column index provided is in the range of axis 1, column value is out of range for axis 0\n");
+            }
+
+            if(!check_dims(col, shape[1])){
+                throw std::invalid_argument("While row index provided is in the range of axis 0, columns value is out of range for axis 1\n");
+            }
+
+            return array2d[row][col];
+        }
+
+        NdArray select_row(int row){
+            if(ndims == 1){
+                throw std::invalid_argument("select_row method was not implemented for 1d array\n");
+            }
+
+            if(!check_dims(row, shape[0])){
+                throw std::invalid_argument("Row value is out of range for axis 0\n");
+            }
+
+            return NdArray(array2d[row]);
+        }
+
+        NdArray select_column(int col){
+            if(ndims == 1){
+                throw std::invalid_argument("select_column method was not implemented for 1d array\n");
+            }
+
+            if(!check_dims(col, shape[0])){
+                throw std::invalid_argument("Column value is out of range for axis 1\n");
+            }
+
+            std::vector<value> res;
+
+            int i, j;
+
+            for(i=0; i<shape[0]; i++){
+                res.push_back(select_value(i, col));
+            }
+
+            return NdArray(res);
+        }
 
         // implement flattening out the 2d array so far?
         // do we need non-changing implementation of 1d array?
@@ -2488,6 +2483,11 @@ class NdArray{
 
 
     private:
+
+
+        bool check_dims(int index, int size){
+            return index >= 0 && index < size;
+        }
 
         // implemented basic matrix multiplication between two NdArray 2-d matrices
         // yet to research the interaction between 1d and 2d matrices and between 1d matrices

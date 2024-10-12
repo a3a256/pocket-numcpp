@@ -19,15 +19,25 @@ int main(){
 
     std::cout << t << '\n';
 
-    // tetsing [] overloading operators
+    // slicing arrays
 
-    NdArray ap(a);
 
-    std::cout << "Slicing operator\n";
+    std::cout << "Checking select value slicing method\n";
+    std::cout << np.select_value(0, 0) << '\n';
 
-    ap = ap[0];
+    np = np.select_column(1);
 
-    std::cout << ap << '\n';
+
+    std::cout << "Checking select columns slicing method\n";
+    std::cout << np << '\n';
+
+    NdArray check(a);
+
+    check = check.select_row(0);
+
+
+    std::cout << "Checking select row slicing method\n";
+    std::cout << check << '\n';
     
 
     return 0;
