@@ -23,9 +23,9 @@ int main(){
 
 
     std::cout << "Checking select value slicing method\n";
-    std::cout << np.select_value(0, 0) << '\n';
+    std::cout << np.select_value(2, 2) << '\n';
 
-    np = np.select_column(1);
+    np = np.select_column(0);
 
 
     std::cout << "Checking select columns slicing method\n";
@@ -33,7 +33,7 @@ int main(){
 
     NdArray check(a);
 
-    check = check.select_row(0);
+    check = check.select_row(1);
 
 
     std::cout << "Checking select row slicing method\n";

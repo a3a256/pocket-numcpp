@@ -1133,7 +1133,7 @@ class NdArray{
             int i, j;
 
             for(i=0; i<shape[0]; i++){
-                res.push_back(select_value(i, col));
+                res.push_back(array2d[i][col]);
             }
 
             return NdArray(res);
