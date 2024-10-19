@@ -2481,6 +2481,28 @@ class NdArray{
             return determinant(vec);
         }
 
+        // defining public overloading methods for inputs of multiple data types and containers
+        // for calculating inverse matrix of the input matrix
+
+        NdArray inv(NdArray array){
+            return inverse_method(array);
+        }
+
+        NdArray inv(std::vector<std::vector<value>> arr){
+            NdArray vec(arr);
+            return inverse_method(vec);
+        }
+
+        NdArray inv(std::vector<std::vector<float>> arr){
+            NdArray vec(arr);
+            return inverse_method(vec);
+        }
+
+        NdArray inv(std::vector<std::vector<int>> arr){
+            NdArray vec(arr);
+            return inverse_method(vec);
+        }
+
 
     private:
 
