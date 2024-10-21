@@ -15,29 +15,9 @@ int main(){
 
     NdArray np(a);
 
-    t = np.det(np);
+    np = np.inv(np);
 
-    std::cout << t << '\n';
-
-    // slicing arrays
-
-
-    std::cout << "Checking select value slicing method\n";
-    std::cout << np.select_value(2, 2) << '\n';
-
-    np = np.select_column(-1);
-
-
-    std::cout << "Checking select columns slicing method\n";
     std::cout << np << '\n';
-
-    NdArray check(a);
-
-    check = check.select_row(1);
-
-
-    std::cout << "Checking select row slicing method\n";
-    std::cout << check << '\n';
     
 
     return 0;
