@@ -3203,7 +3203,7 @@ class NdArray{
 
             for(i=0; i<arr.shape.two_dim[0]; i++){
                 for(j=0; j<arr.shape.two_dim[1]; j++){
-                    arr.array2d[i][j] *= (int)std::pow(-1.0f, (i+1)+(j+1));
+                    arr.array2d[i][j] *= (float)std::pow(-1.0f, (i+1)+(j+1));
                 }
             }
 
