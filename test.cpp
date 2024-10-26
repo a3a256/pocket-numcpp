@@ -18,12 +18,6 @@ int main(){
     np = np.inv(np);
 
     std::cout << np << '\n';
-
-    // std::vector<std::vector<int>> c = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-
-    // // np = np.inv(c);
-
-    // std::cout << np.shape[0] << '\n';
     
 
     return 0;
