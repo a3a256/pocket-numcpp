@@ -900,6 +900,41 @@ class NdArray{
             return vec;
         }
 
+        NdArray array(std::vector<float> arr){
+            NdArray vec(arr);
+            return vec;
+        }
+
+        NdArray array(std::vector<std::string> arr){
+            NdArray vec(arr);
+            return vec;
+        }
+
+        NdArray array(std::vector<value> arr){
+            NdArray vec(arr);
+            return vec;
+        }
+
+        NdArray array(std::vector<std::vector<int>> arr){
+            NdArray vec(arr);
+            return vec;
+        }
+
+        NdArray array(std::vector<std::vector<float>> arr){
+            NdArray vec(arr);
+            return vec;
+        }
+
+        NdArray array(std::vector<std::vector<std::string>> arr){
+            NdArray vec(arr);
+            return vec;
+        }
+
+        NdArray array(std::vector<std::vector<value>> arr){
+            NdArray vec(arr);
+            return vec;
+        }
+
         // plan to investigate whether you can or cannot add float or int to string values like usual in Python, whether it is possible
         // or not in OG numpy or not (to do that soon)
         // for both types implement for situations when NdArray dim = 1 as well
