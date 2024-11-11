@@ -10,9 +10,9 @@ int main(){
 
     value t;
 
-    NdArray np(a);
+    NdArray np;
 
-    np = np.inv(np);
+    np = np.array(a);
 
     std::cout << np << '\n';
     
